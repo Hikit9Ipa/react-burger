@@ -1,0 +1,10 @@
+
+@import url('./components/AppHeader/AppHeader.module.css');
+@import url('./index.css');
+main{
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background-color: #131316;
+  
+}
