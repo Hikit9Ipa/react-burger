@@ -1,6 +1,6 @@
 
-@import url('./components/AppHeader/AppHeader.module.css');
-@import url('./index.css');
+/* @import url('./components/AppHeader/AppHeader.module.css'); */
+@import url('../../index.css');
 main{
   display: flex;
   justify-content: center;

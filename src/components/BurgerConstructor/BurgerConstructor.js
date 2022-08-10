@@ -6,7 +6,9 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-function BurgerConstructor(props) {
+
+
+function BurgerConstructor({ ingredients }) {
   return (
     <section className={`${styles.section} pt-25 `}>
       <div className={`${styles.sectionContainer} pr-4`}>
@@ -21,10 +23,10 @@ function BurgerConstructor(props) {
         </div>
 
         <div className={`${styles.scrollitems} mb-4`}>
-          {props.ingredients
+          {ingredients
             .filter((item) => item.type !== "bun")
             .map((item) => (
-              <div className={`${styles.item} mb-4`} key={item.name}>
+              <div className={`${styles.item} mb-4`} key={item._id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   isLocked={false}

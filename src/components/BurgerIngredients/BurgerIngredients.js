@@ -3,7 +3,8 @@ import styles from "./BurgerIngredients.module.css";
 import Ingredients from "../Ingredients/Ingredients.js";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerIngredients(props) {
+
+function BurgerIngredients({ ingredients }) {
   const items = [
     {
       name: "bun",
@@ -56,7 +57,7 @@ function BurgerIngredients(props) {
             type={item.name}
             key={item.name}
             title={item.title}
-            data={props.ingredients.filter((el) => el.type === item.name)}
+            data={ingredients.filter((el) => el.type === item.name)}
           ></Ingredients>
         ))}
       </div>

@@ -6,29 +6,29 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Ingredients(props) {
+
+function Ingredients({ title, data }) {
   return (
-    //  console.log(props),
     <section>
-      <h2 className="text text_type_main-medium pt-10">{props.title}</h2>
+      <h2 className="text text_type_main-medium pt-10">{title}</h2>
       <ul className={`${styles.list} mt-6 mr-2 ml-4`}>
-        {
-      props.data.map((item)=>(
-        // console.log(item),
-        <li key={item._id} className={styles.item}>
-        <img
-          className={`pr-4 pl-4 pb-1`}
-          src={item.image} alt={item.name}
-          >
-        </img>
-        <Counter count={1} size="default" />
-        <div className={`${styles.price} pb-1`}>
-          <p className="text text_type_digits-default pr-2">{item.price}</p>
-          <CurrencyIcon type="primary" />
-        </div>
-        <p className={`${styles.caption} text text_type_main-default pt-1`}>{item.name}</p>
-      </li>
-      ))}
+        {data.map((item) => (
+          <li key={item._id} className={styles.item}>
+            <img
+              className={`pr-4 pl-4 pb-1`}
+              src={item.image}
+              alt={item.name}
+            ></img>
+            <Counter count={1} size="default" />
+            <div className={`${styles.price} pb-1`}>
+              <p className="text text_type_digits-default pr-2">{item.price}</p>
+              <CurrencyIcon type="primary" />
+            </div>
+            <p className={`${styles.caption} text text_type_main-default pt-1`}>
+              {item.name}
+            </p>
+          </li>
+        ))}
       </ul>
     </section>
   );
