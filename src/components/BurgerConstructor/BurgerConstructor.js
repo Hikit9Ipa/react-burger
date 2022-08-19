@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
-function BurgerConstructor({ ingredients }) {
+function BurgerConstructor({ ingredients ,openModal}) {
   return (
     <section className={`${styles.section} pt-25 `}>
       <div className={`${styles.sectionContainer} pr-4`}>
@@ -52,7 +52,7 @@ function BurgerConstructor({ ingredients }) {
           600
           <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={() => openModal()}>
           Оформить заказ
         </Button>
       </div>
