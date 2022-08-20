@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./BurgerConstructor.module.css";
+import PropTypes from 'prop-types';
+import {types} from '../../utils/types';
 import {
   ConstructorElement,
   DragIcon,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
 
 function BurgerConstructor({ ingredients ,openModal}) {
   return (
@@ -59,5 +60,9 @@ function BurgerConstructor({ ingredients ,openModal}) {
     </section>
   );
 }
+BurgerConstructor.propTypes = { 
+  ingredients: PropTypes.arrayOf(types).isRequired,
+  openModal:PropTypes.func.isRequired
+};
 
 export default BurgerConstructor;

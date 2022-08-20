@@ -1,9 +1,9 @@
 import React from "react";
 //import data1 from '../../utils/data.js';
 import styles from "./App.module.css";
-import AppHeader from "../AppHeader/AppHeader.js";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.js";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients.js";
+import AppHeader from "../AppHeader/AppHeader.jsx";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.jsx";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients.jsx";
 import Modal from "../Modal/Modal.jsx";
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
@@ -30,24 +30,37 @@ function App() {
 
     getProductData();
   }, []);
+  React.useEffect(()=>{
+    const closeEsc = (e) => {
+      if(e.key === 'Escape'){
+        if(ordVisible) {
+          setOrdVisible(false)
+        }
+        else if(ingredientVisible) {
+          setIngredientVisible(false);
+        }
+      }
+  }
+  window.addEventListener('keydown', closeEsc);
+
+  return () => window.removeEventListener('keydown', closeEsc);
+
+},[ordVisible, ingredientVisible]);
+
 
   const closeOrdModal = () => {
-    console.log("close");
     setOrdVisible(false);
   };
 
   const openOrdModal = () => {
-    console.log("open");
     setOrdVisible(true);
   };
   const closeIngredientModal = () => {
-    console.log("close ing");
     setIngredientVisible(false);
   };
 
   const openIngredientModal = (item) => {
     setCurrentIngredient({ ...item });
-    console.log("open ingr");
     setIngredientVisible(true);
   };
   const dataOrder = {
@@ -66,13 +79,13 @@ function App() {
           openModal={openIngredientModal}
         />
         <BurgerConstructor ingredients={state} openModal={openOrdModal} />
-        {ordVisible && (
-          <Modal onClick={closeOrdModal} header="">
+        {ordVisible && 
+          <Modal onClick={closeOrdModal} header={""}>
             <OrderDetails {...dataOrder} />
           </Modal>
-        )}
+        }
         {ingredientVisible && (
-          <Modal onClick={closeIngredientModal} header="Детали ингредиента">
+          <Modal onClick={closeIngredientModal} header={"Детали ингредиента"}>
             <IngredientDetails currentIngredient={currentIngredient} />
           </Modal>
         )}
