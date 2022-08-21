@@ -35,7 +35,7 @@ function Ingredients({ title, data, openModal }) {
 }
 Ingredients.propTypes = { 
   title:PropTypes.string.isRequired,
-  data:types.isRequired.isRequired,
+  data:PropTypes.arrayOf(types).isRequired,
    openModal:PropTypes.func.isRequired
 }
 export default Ingredients;
