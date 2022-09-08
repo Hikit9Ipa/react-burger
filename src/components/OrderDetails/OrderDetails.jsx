@@ -15,7 +15,7 @@ function OrderDetails(props) {
     <section className={`${styles.root}`}>
       <span className={`${styles.text_sh}`}>
         <p className={`${styles.root1} text_type_digits-large mt-4 mb-8`}>
-          {props.orderNumber}
+          {props.order}
         </p>
       </span>
       <p className={`${styles.orderIdText} text_type_main-medium mb-15`}>
