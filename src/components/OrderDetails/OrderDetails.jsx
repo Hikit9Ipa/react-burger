@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./OrderDetails.module.css";
 import PropTypes from "prop-types";
-import { dataTypes } from "../../utils/types.js";
+import { orderTypes } from "../../utils/types.js";
 import {
   ConstructorElement,
   DragIcon,
@@ -30,6 +30,6 @@ function OrderDetails(props) {
   );
 }
 OrderDetails.propTypes = {
-  props: dataTypes.isRequired,
+  props: orderTypes.isRequired,
 };
 export default OrderDetails;

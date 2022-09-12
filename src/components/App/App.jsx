@@ -8,15 +8,19 @@ import Modal from "../Modal/Modal.jsx";
 //import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
 import { BurgerIngredContext } from "../Contexts/Contexts.jsx";
-import { ingredients } from "../Api/Api.jsx";
+import { getIngredients } from "../../utils/Api/Api.js";
 
 function App() {
   const [state, setState] = React.useState([]);
   const [ingredientVisible, setIngredientVisible] = React.useState(false);
   const [currentIngredient, setCurrentIngredient] = React.useState({});
 
+  const getIngredientsData = async()=>{
+    const response = await getIngredients();
+    setState(response.data );
+  }
   React.useEffect(() => {
-    ingredients(setState);
+  getIngredientsData();
   }, []);
 
   React.useEffect(() => {
@@ -56,7 +60,7 @@ function App() {
             </Modal>
           )}
         </main>
-      </div>
+      </div>c
     </BurgerIngredContext.Provider>
   );
 }

@@ -5,7 +5,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { types } from "../../utils/types";
+import {ingredientPropTypes } from "../../utils/types";
 
 function Ingredients({ title, data, openModal }) {
   return (
@@ -39,7 +39,7 @@ function Ingredients({ title, data, openModal }) {
 }
 Ingredients.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(types).isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   openModal: PropTypes.func.isRequired,
 };
 export default Ingredients;

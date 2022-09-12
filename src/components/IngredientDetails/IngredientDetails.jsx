@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./IngredientDetails.module.css";
 import PropTypes from 'prop-types';
-import {types} from '../../utils/types';
+import {ingredientPropTypes} from '../../utils/types';
 function IngredientDetails(props) {
 
     return (
@@ -31,7 +31,7 @@ function IngredientDetails(props) {
     )
   };
   IngredientDetails.propTypes = { 
-    currentIngredients: PropTypes.arrayOf(types)
+    ingredientDetails: PropTypes.arrayOf(ingredientPropTypes)
   };
   
   
