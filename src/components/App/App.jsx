@@ -31,17 +31,17 @@ function App() {
     dispatch(getIngredientsDisp());
   }, [dispatch]);
 
-  const closeModal = () => {
-    dispatch({ type: CLOSE_INGREDIENT });
-    dispatch({ type: CLOSE_ORDER });
-  };
+  // const closeModal = () => {
+  //   dispatch({ type: CLOSE_INGREDIENT });
+  //   dispatch({ type: CLOSE_ORDER });
+  // };
 
-  useEffect(() => {
-    const closeEsc = (e) => {
-      e.key === "Escape" && closeModal();
-    };
-    window.addEventListener("keydown", closeEsc);
-  }, []);
+  // useEffect(() => {
+  //   const closeEsc = (e) => {
+  //     e.key === "Escape" && closeModal();
+  //   };
+  //   window.addEventListener("keydown", closeEsc);
+  // }, []);
 
   const openIngredientModaln = (item) => {
     dispatch({ type: ADD_CURRENT_INGREDIENT, item });
@@ -66,7 +66,7 @@ function App() {
         </DndProvider>
 
         {ingredientVisiblen && (
-          <Modal onClick={closeModal} header={"Детали ингредиента"}>
+          <Modal header={"Детали ингредиента"}>
             <IngredientDetails currentIngredient={currentIngredientn} />
           </Modal>
         )}
