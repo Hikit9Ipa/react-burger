@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
+//import React from "react";
+//import ReactDOM from "react-dom";
 import styles from "./OrderDetails.module.css";
 import PropTypes from "prop-types";
 import { orderTypes } from "../../utils/types.js";
-import {
-  ConstructorElement,
-  DragIcon,
-  CurrencyIcon,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+// import {
+//   ConstructorElement,
+//   DragIcon,
+//   CurrencyIcon,
+//   Button,
+// } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function OrderDetails(props) {
   return (

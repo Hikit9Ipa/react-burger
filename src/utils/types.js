@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
- const ingredientPropTypes = PropTypes.shape({ 
+const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
@@ -12,13 +12,13 @@ import PropTypes from 'prop-types';
   image: PropTypes.string,
   image_mobile: PropTypes.string,
   image_large: PropTypes.string,
-  __v: PropTypes.number
+  __v: PropTypes.number,
 });
-const orderTypes = PropTypes.shape({ 
+const orderTypes = PropTypes.shape({
   orderNumber: PropTypes.string,
   orderIdText: PropTypes.string,
   orderImg: PropTypes.string,
   orderStatus: PropTypes.string,
   orderExpectationText: PropTypes.string,
 });
-export {ingredientPropTypes,orderTypes};
+export { ingredientPropTypes, orderTypes };

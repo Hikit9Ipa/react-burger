@@ -1,67 +1,77 @@
-import React from "react";
-//import data1 from '../../utils/data.js';
+import React, { useEffect } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader.jsx";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.jsx";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.js";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients.jsx";
 import Modal from "../Modal/Modal.jsx";
-//import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
-import { BurgerIngredContext } from "../Contexts/Contexts.jsx";
-import { getIngredients } from "../../utils/Api/Api.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredientsDisp, getOrderDisp } from "../../utils/Api/Api.js";
+import {
+  OPEN_ORDER,
+  CLOSE_ORDER,
+  OPEN_INGREDIENT,
+  CLOSE_INGREDIENT,
+} from "../../services/reducers/visibleModals";
+import { ADD_CURRENT_INGREDIENT } from "../../services/reducers/currentIngredient";
 function App() {
-  const [state, setState] = React.useState([]);
-  const [ingredientVisible, setIngredientVisible] = React.useState(false);
-  const [currentIngredient, setCurrentIngredient] = React.useState({});
+  const dispatch = useDispatch();
+  const currentIngredientn = useSelector(
+    (state) => state.currentIngredient.currentIngredient
+  );
+  const ingredientVisiblen = useSelector(
+    (state) => state.visible.ingredientVisible
+  );
+  const orderNum = useSelector((state) => state.order.order.number);
+  const orderS = useSelector((state) => state.order.orderRequest);
 
-  const getIngredientsData = async()=>{
-    const response = await getIngredients();
-    setState(response.data );
-  }
-  React.useEffect(() => {
-  getIngredientsData();
-  }, []);
+  useEffect(() => {
+    dispatch(getIngredientsDisp());
+  }, [dispatch]);
 
-  React.useEffect(() => {
+  const closeModal = () => {
+    dispatch({ type: CLOSE_INGREDIENT });
+    dispatch({ type: CLOSE_ORDER });
+  };
+
+  useEffect(() => {
     const closeEsc = (e) => {
-      if (e.key === "Escape") {
-       if (ingredientVisible) {
-          setIngredientVisible(false);
-        }
-      }
+      e.key === "Escape" && closeModal();
     };
     window.addEventListener("keydown", closeEsc);
+  }, []);
 
-    return () => window.removeEventListener("keydown", closeEsc);
-  }, [ingredientVisible]);
-
-  const closeIngredientModal = () => {
-    setIngredientVisible(false);
+  const openIngredientModaln = (item) => {
+    dispatch({ type: ADD_CURRENT_INGREDIENT, item });
+    dispatch({ type: OPEN_INGREDIENT });
   };
 
-  const openIngredientModal = (item) => {
-    setCurrentIngredient({ ...item });
-    setIngredientVisible(true);
+  const openOrderModal = (orderData) => {
+    dispatch(getOrderDisp(orderData));
   };
+
+  useEffect(() => {
+    if (orderNum !== null) dispatch({ type: OPEN_ORDER });
+  }, [orderNum, orderS]);
+
   return (
-    <BurgerIngredContext.Provider value={{ state, setState }}>
-      <div>
-        <AppHeader />
-        <main className={styles.main}>
-          <BurgerIngredients
-            ingredients={state}
-            openModal={openIngredientModal}
-          />
-          <BurgerConstructor/>
-          {ingredientVisible && (
-            <Modal onClick={closeIngredientModal} header={"Детали ингредиента"}>
-              <IngredientDetails currentIngredient={currentIngredient} />
-            </Modal>
-          )}
-        </main>
-      </div>c
-    </BurgerIngredContext.Provider>
+    <div>
+      <AppHeader />
+      <main className={styles.main}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients openModal={openIngredientModaln} />
+          <BurgerConstructor openOrder={openOrderModal} />
+        </DndProvider>
+
+        {ingredientVisiblen && (
+          <Modal onClick={closeModal} header={"Детали ингредиента"}>
+            <IngredientDetails currentIngredient={currentIngredientn} />
+          </Modal>
+        )}
+      </main>
+    </div>
   );
 }
 

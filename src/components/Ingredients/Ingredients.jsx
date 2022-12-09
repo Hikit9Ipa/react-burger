@@ -1,45 +1,34 @@
 import React from "react";
-import styles from "./Ingredients.module.css";
+import styles from './Ingredients.module.css';
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import {ingredientPropTypes } from "../../utils/types";
+import { ingredientPropTypes } from "../../utils/types";
+import { useSelector } from "react-redux";
+import { useMemo,forwardRef } from "react";
 
-function Ingredients({ title, data, openModal }) {
+import Ingredient from "../Ingredient/Ingredient";
+const Ingredients = forwardRef(({ openModal, title, ingredients },ref)=>{
+//(({({ openModal, title, ingredients }) {
+  
   return (
-    <section>
+    <li ref={ref}>
       <h2 className="text text_type_main-medium pt-10">{title}</h2>
-      <ul className={`${styles.list} mt-6 mr-2 ml-4`}>
-        {data.map((item) => (
-          <li
-            key={item._id}
-            className={styles.item}
-            onClick={() => openModal(item)}
-          >
-            <img
-              className={`pr-4 pl-4 pb-1`}
-              src={item.image}
-              alt={item.name}
-            ></img>
-            <Counter count={1} size="default" />
-            <div className={`${styles.price} pb-1`}>
-              <p className="text text_type_digits-default pr-2">{item.price}</p>
-              <CurrencyIcon type="primary" />
-            </div>
-            <p className={`${styles.caption} text text_type_main-default pt-1`}>
-              {item.name}
-            </p>
-          </li>
+      <ul  className={`${styles.list} mt-6 mr-2 ml-4`}>
+        {ingredients.map(element => (
+          <Ingredient  element={element} 
+           key={element._id} openModal={openModal}> </Ingredient>
         ))}
       </ul>
-    </section>
+    </li>
   );
 }
+)
 Ingredients.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  openModal: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes),
+  openModal: PropTypes.func,
 };
 export default Ingredients;
