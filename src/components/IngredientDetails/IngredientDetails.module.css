@@ -1,0 +1,21 @@
+
+.root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nutrVal{
+    display: flex;
+    width: 516px;
+}
+.nutrValItem{
+    display: flex;
+    flex-direction: column;
+    width: 112px;
+    color: #8585AD;
+    align-items: center;
+
+}
+.nutrValItem:first-child{
+    width: 120px;
+}
