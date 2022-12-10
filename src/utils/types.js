@@ -15,10 +15,10 @@ const ingredientPropTypes = PropTypes.shape({
   __v: PropTypes.number,
 });
 const orderTypes = PropTypes.shape({
-  orderNumber: PropTypes.string,
   orderIdText: PropTypes.string,
   orderImg: PropTypes.string,
   orderStatus: PropTypes.string,
   orderExpectationText: PropTypes.string,
+
 });
 export { ingredientPropTypes, orderTypes };

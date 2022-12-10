@@ -10,7 +10,7 @@ import {
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import Modal from "../Modal/Modal.jsx";
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import orderImg from "../../images/done.svg";
+//import orderImg from "../../images/done.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
@@ -31,7 +31,7 @@ function BurgerConstructor({ openOrder }) {
   const burgerBunIds = constructorIngredients
     .filter((item) => item.type == "bun")
     .map((item) => item._id);
-  const orderNum = useSelector((state) => state.order.order);
+  //const orderNum = useSelector((state) => state.order.order);
   const orderIds = [
     ...constructorIngredients.map((item) => item._id),
     burgerBunIds,
@@ -62,14 +62,6 @@ function BurgerConstructor({ openOrder }) {
   const closeOrdModal = () => {
     dispatch({ type: CLOSE_ORDER });
   };
-
-  const dataOrder = {
-    orderIdText: "идентификатор заказа",
-    orderImg: orderImg,
-    orderStatus: "Ваш заказ начали готовить",
-    orderExpectationText: "Дождитесь готовности на орбитальной станции",
-  };
-
   return (
     <section className={`${styles.section} pt-25 `} ref={dropTarget}>
       <div className={`${styles.sectionContainer} pr-4`}>
@@ -119,7 +111,7 @@ function BurgerConstructor({ openOrder }) {
         </Button>
         {ordVisible && (
           <Modal onClick={closeOrdModal} header={""}>
-            <OrderDetails {...dataOrder} order={orderNum.order.number} />
+            <OrderDetails/>
           </Modal>
         )}
       </div>

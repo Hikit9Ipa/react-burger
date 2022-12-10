@@ -11,25 +11,21 @@ const initialVisibalState = {
 export const visibleReducer = (state = initialVisibalState, action) => {
   switch (action.type) {
     case OPEN_INGREDIENT: {
-      //console.log("ingredientVisible: true");
       return {
         ingredientVisible: true,
       };
     }
     case CLOSE_INGREDIENT: {
-      //console.log("ingredientVisible: false");
       return {
         ingredientVisible: false,
       };
     }
     case OPEN_ORDER: {
-      //console.log("orderVisible: true");
       return {
         orderVisible: true,
       };
     }
     case CLOSE_ORDER: {
-      //console.log("orderVisible: false");
       return {
         orderVisible: false,
       };

@@ -28,6 +28,7 @@ const orderReducer = (state = initialOrderState, action) => {
     case GET_ORDER_FAILED: {
       return {
         ...state,
+        order: null,
         orderFailed: true,
         orderRequest: false,
       };

@@ -30,19 +30,7 @@ function App() {
   useEffect(() => {
     dispatch(getIngredientsDisp());
   }, [dispatch]);
-
-  // const closeModal = () => {
-  //   dispatch({ type: CLOSE_INGREDIENT });
-  //   dispatch({ type: CLOSE_ORDER });
-  // };
-
-  // useEffect(() => {
-  //   const closeEsc = (e) => {
-  //     e.key === "Escape" && closeModal();
-  //   };
-  //   window.addEventListener("keydown", closeEsc);
-  // }, []);
-
+  
   const openIngredientModaln = (item) => {
     dispatch({ type: ADD_CURRENT_INGREDIENT, item });
     dispatch({ type: OPEN_INGREDIENT });
