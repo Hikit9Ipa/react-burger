@@ -20,7 +20,7 @@ import { CLOSE_ORDER } from "../../services/reducers/visibleModals";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 
-function BurgerConstructor({ openOrder }) {
+function BurgerConstructor({ openOrderModal} ) {
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(
     (state) => state.constructorReducer.constructorIngredients
@@ -105,7 +105,7 @@ function BurgerConstructor({ openOrder }) {
         <Button
           type="primary"
           size="medium"
-          onClick={() => openOrder(orderIds)}
+          onClick={() => openOrderModal(orderIds)}
         >
           Оформить заказ
         </Button>
@@ -120,7 +120,7 @@ function BurgerConstructor({ openOrder }) {
 }
 BurgerConstructor.propTypes = {
   //ingredients: PropTypes.arrayOf(ingredientPropTypes),
-  openOrder: PropTypes.func.isRequired,
+  openOrderModal: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

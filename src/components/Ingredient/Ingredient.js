@@ -8,20 +8,37 @@ import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../utils/types";
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
+import { NavLink,useLocation } from 'react-router-dom';
 function Ingredient({ element, openModal }) {
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: element,
   });
   const constructorIngredients = useSelector((store) => store.constructorReducer.constructorIngredients);
-
+  let activeStyle = {
+    textDecoration: "none",
+  };
+  let inactiveStyle = {
+    textDecoration: "none",
+  };
   const counter = useMemo(() => {
     return (
       constructorIngredients.filter((item) => item._id === element._id).length
     );
   }, [constructorIngredients]);
-
+  const location = useLocation();
   return (
+    <NavLink
+    style={({ isActive }) =>
+    isActive ? activeStyle : inactiveStyle
+  }
+    key={ element._id }
+    to={{
+      pathname: `/ingredients/${element._id }`
+
+    }}
+    state={"ingredient"}
+    >
     <li
       onClick={() => openModal(element)}
       className={styles.item}
@@ -42,6 +59,7 @@ function Ingredient({ element, openModal }) {
         {element.name}
       </p>
     </li>
+    </NavLink>
   );
 }
 export default Ingredient;

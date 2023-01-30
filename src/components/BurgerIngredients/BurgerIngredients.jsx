@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 //import { ingredientPropTypes } from "../../utils/types";
 import { useSelector } from "react-redux";
 
-function BurgerIngredients({ openModal }) {
+function BurgerIngredients({ openIngredientModaln }) {
   const [tab, setTab] = useState("bun");
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -92,7 +92,7 @@ function BurgerIngredients({ openModal }) {
             key={item.name}
             title={item.title}
             ingredients={ingredients.filter((el) => el.type === item.name)}
-            openModal={openModal}
+            openModal={openIngredientModaln}
             ref={item.ref}
           ></Ingredients>
         ))}
@@ -101,6 +101,6 @@ function BurgerIngredients({ openModal }) {
   );
 }
 BurgerIngredients.propTypes = {
-  openModal: PropTypes.func.isRequired,
+  openIngredientModaln: PropTypes.func.isRequired,
 };
 export default BurgerIngredients;

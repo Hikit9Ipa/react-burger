@@ -4,6 +4,7 @@
 	list-style-type: none;
 	width: 272px;
     height:208px ;
+    
 }
 .img{
 width: 240px;
@@ -12,7 +13,10 @@ height: 120px;
 .price{
     display: flex;
     justify-content: center;
+
+    color: #ffffff;
 }
 .caption{
     text-align: center;
+    color: #ffffff;
 }

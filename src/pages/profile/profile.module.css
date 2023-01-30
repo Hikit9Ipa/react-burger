@@ -1,0 +1,61 @@
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  margin-top: 80px;
+}
+
+.nav {
+  margin: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resetButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  text-shadow: 0 0 10px #4c4cff;
+}
+
+.description {
+  color: #8585AD;
+  opacity: 0.4;
+  text-align: left;
+}
+
+.link {
+  line-height: 64px;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.linkActive {
+  color: #F2F2F3;
+}
