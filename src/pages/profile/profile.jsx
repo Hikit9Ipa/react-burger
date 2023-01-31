@@ -22,19 +22,19 @@ import { useDispatch, useSelector } from "react-redux";
   useEffect(() => {
     setFormData({ ...user, password: '' });
     
-  }, );
+  }, []);
   const [buttonsShow, setButtonsShow] = useState(false);
 
   const hadleChangeFormData = (e) => {
     e.preventDefault();
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setButtonsShow(true);
+    // setFormData({ ...formData, [e.target.name]: e.target.value });
+    // setButtonsShow(true);
   };
 
   const handleReset = (e) => {
     e.preventDefault();
-    setFormData({ ...user, name: '', email: '', password: '' });
-    setButtonsShow(false);
+    // setFormData({ ...user, name: '', email: '', password: '' });
+    // setButtonsShow(false);
   };
 
   const handleLogout = (e) => {
@@ -45,8 +45,8 @@ import { useDispatch, useSelector } from "react-redux";
 
   const handleUserUpdate = (e) => {
     e.preventDefault();
-    dispatch(sendRefreshUserInfoRequest(formData));
-    setButtonsShow(true);
+    // dispatch(sendRefreshUserInfoRequest(formData));
+    // setButtonsShow(true);
   };
  
   

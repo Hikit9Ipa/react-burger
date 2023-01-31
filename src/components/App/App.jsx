@@ -15,7 +15,7 @@ import {
   OPEN_INGREDIENT,
   CLOSE_INGREDIENT,
 } from "../../services/reducers/visibleModals";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import {
   MainPage,
   Page404,
@@ -23,32 +23,37 @@ import {
   ForgotPasswordPage,
   ProfilePage,
   RegisterPage,
-  ResetPasswordPage,IngredientsPage
+  ResetPasswordPage,
+  IngredientsPage,
 } from "../../pages";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { sendGetUserInfoRequest } from "../../utils/Api/AuthApi.js";
 import { ADD_CURRENT_INGREDIENT } from "../../services/reducers/currentIngredient";
+import { getCookie } from "../../utils/cookie/cookie";
 function App() {
-  const { auth } = useSelector((store) => store.auth);
-  
   const dispatch = useDispatch();
-  const currentIngredientn = useSelector(
-    (state) => state.currentIngredient.currentIngredient
-  );
-  const ingredientVisiblen = useSelector(
-    (state) => state.visible.ingredientVisible
-  );
-  const orderNum = useSelector((state) => state.order.order.number);
-  const orderS = useSelector((state) => state.order.orderRequest);
-
+  const { auth } = useSelector((store) => store.auth);
   useEffect(() => {
     dispatch(getIngredientsDisp());
   }, [dispatch]);
 
- 
   useEffect(() => {
+    if(!auth && getCookie("accessToken") ){
     dispatch(sendGetUserInfoRequest());
+  }
   }, []);
+  const location = useLocation();
+  const backmenu = location.state?.backmenu;
+  const currentIngredientn = useSelector(
+    (state) => state.currentIngredient.currentIngredient
+  );
+  const ingredientVisiblen = useSelector(
+    (state) => state.visible.ingredientVisibles
+  );
+  const orderNum = useSelector((state) => state.order.order.number);
+  const orderS = useSelector((state) => state.order.orderRequest);
+
+  
 
   const openIngredientModaln = (item) => {
     dispatch({ type: ADD_CURRENT_INGREDIENT, item });
@@ -64,37 +69,43 @@ function App() {
   }, [orderNum, orderS]);
 
   return (
-    <BrowserRouter>
-      <DndProvider backend={HTML5Backend}>
-        <div>
-          <AppHeader />
-          <Routes>
-             <Route path="/" exact={true} element={<MainPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>}/> 
-            <Route path="/ingredients/:id" exact={true} element={<IngredientsPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>} /> 
+    <DndProvider backend={HTML5Backend}>
+      <AppHeader />
+       <Routes>
+        <Route
+          path="/"
+          exact={true}
+          element={
+            <MainPage
+              openIngredientModaln={openIngredientModaln}
+              openOrderModal={openOrderModal}
+            />
+          } />
+        
             <Route path="/404" exact={true} element={<Page404 />} />
             <Route path="*" exact={true} element={<Page404 />} />
-            <Route path="/login" exact={true} element={<ProtectedRoute><LoginPage /></ProtectedRoute>} />
-            <Route path="/register" exact={true} element={<ProtectedRoute><RegisterPage /></ProtectedRoute>} />
-            <Route path="/forgot-password" exact={true} element={<ProtectedRoute><ForgotPasswordPage /></ProtectedRoute>} />
-            <Route path="/reset-password" exact={true} element={<ProtectedRoute><ResetPasswordPage /></ProtectedRoute>} />
+            {/* <Route path="/login" exact={true} element={<LoginPage />} />  */}
+            <Route path="/login" exact={true} element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
+            <Route path="/register" exact={true} element={<ProtectedRoute onlyUnAuth><RegisterPage /></ProtectedRoute>} />
+            <Route path="/profile" exact={true} element={<ProtectedRoute onlyUnAuth={false}><ProfilePage /></ProtectedRoute>} />
+            <Route path="/forgot-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true}><ForgotPasswordPage /></ProtectedRoute>} />
+            <Route path="/reset-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true} ><ResetPasswordPage /></ProtectedRoute>} />
             <Route path="/profile" exact={true} element={<ProfilePage />} />
-            {/* <Route path="/ingredients" exact={true} element={<MainPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>} />  */}
-            </Routes>
-          {/* <main className={styles.main}>
-          <BurgerIngredients openModal={openIngredientModaln} />
-          <BurgerConstructor openOrder={openOrderModal} />
-          </main> */}
-          {/* {ingredientVisiblen && (
-            <Route path="/ingredients/:id" element={
-            <Modal header={"Детали ингредиента"}>
-            <IngredientDetails currentIngredient={currentIngredientn} />
-          </Modal>}>
-            
-            </Route>
-          )} */}
-        </div>
-      </DndProvider>
-    </BrowserRouter>
+            {location.state == "ingredient"  && (
+              
+        <Route
+          path="/ingredients/:id"
+          element={
+            <MainPage
+              openIngredientModaln={openIngredientModaln}
+              openOrderModal={openOrderModal}></MainPage>
+          }
+        />
+      )} else {
+        <Route path="/ingredients/:id" exact={true} element={<IngredientsPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>}/> 
+      }
+      </Routes>
+    </DndProvider>
   );
 }
 

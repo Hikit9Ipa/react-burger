@@ -23,9 +23,9 @@ export function ForgotPasswordPage() {
     dispatch(sendForgotPassEmail(email));
     navigate("/reset-password" ,{state:"FPass"});
   };
-  if (auth) {
-    navigate("/");
-  }
+  // if (auth) {
+  //   navigate("/");
+  // }
 
   return (
     <section className={styles.container}>

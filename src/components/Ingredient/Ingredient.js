@@ -34,7 +34,7 @@ function Ingredient({ element, openModal }) {
   }
     key={ element._id }
     to={{
-      pathname: `/ingredients/${element._id }`
+      pathname: `/ingredients/${element._id }`,
 
     }}
     state={"ingredient"}

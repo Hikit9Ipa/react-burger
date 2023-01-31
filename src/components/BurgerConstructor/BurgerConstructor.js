@@ -105,7 +105,7 @@ function BurgerConstructor({ openOrderModal} ) {
         <Button
           type="primary"
           size="medium"
-          onClick={() => openOrderModal(orderIds)}
+          onClick={() => {if(orderIds.length>1){openOrderModal(orderIds);}}}
         >
           Оформить заказ
         </Button>

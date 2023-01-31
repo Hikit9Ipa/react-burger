@@ -28,3 +28,6 @@
 .profile{
   justify-self: self-end;
 }
+.active{
+  text-decoration: none;
+}

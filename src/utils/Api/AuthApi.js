@@ -176,7 +176,6 @@ export function sendGetUserInfoRequest() {
       .then(checkResponse)
       .then((res) => {
         if (res.success) {
-          console.log(res);
           dispatch({
             type: GET_USER_SUCCESS,
             user: res.user,
@@ -184,7 +183,6 @@ export function sendGetUserInfoRequest() {
         }
       })
       .catch(() => {
-        console.log("catch getuser");
         console.log(getCookie("refreshToken"));
         if (getCookie("refreshToken")) {
           dispatch(sendRefreshTokenRequest());

@@ -4,13 +4,15 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { sendLoginRequest } from "../../utils/Api/AuthApi";
 export function LoginPage() {
+  console.log('login');
+  const { auth } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,11 +27,12 @@ export function LoginPage() {
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(sendLoginRequest({...formData}));
-    navigate("/");
-    console.log(document.cookie)
+    dispatch(sendLoginRequest({ ...formData }));
   };
-
+  if (auth) {
+    console.log("Navigate in page")
+    return <Navigate to="/"></Navigate>;
+  }
   return (
     <section className={styles.container}>
       <h1 className={`${styles.title} text_type_main-medium mb-6`}>Вход</h1>

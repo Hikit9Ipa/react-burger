@@ -4,43 +4,48 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import styles from "./AppHeader.module.css";
 
 function AppHeader() {
+  const activeStyle = {
+    textDecoration: "none",
+    color:"red"
+  };
   return (
     <header className={styles.header}>
       <nav className={`${styles.menu} pt-4 pb-4`}>
         <ul className={styles.menuList}>
           <li>
-            <a className={`${styles.menuItem} pl-5 pr-2`}>
+            <NavLink to='/' className={`${styles.menuItem} pl-5 pr-2`}>
               <BurgerIcon type="primary"></BurgerIcon>
               <p className="text text_type_main-default pl-2 pt-4 pb-4 pr-5">
                 Конструктор
               </p>
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a className={`${styles.menuItem} pl-5`}>
+            <NavLink to='/404' className={`${styles.menuItem} pl-5`}>
               <ListIcon type="secondary"></ListIcon>
               <p className="text text_color_inactive text_type_main-default pl-2 pt-4 pb-4 pr-5">
                 Лента заказов
               </p>
-            </a>
+            </NavLink>
           </li>
         </ul>
         <div className={styles.logo}>
-          <a>
+          <NavLink to='/404'>
             <Logo />
-          </a>
+          </NavLink>
         </div>
         <div className={styles.profile}>
-          <a className={styles.menuItem}>
+          <NavLink to='/profile' className={styles.menuItem}>
             <ProfileIcon type="secondary"></ProfileIcon>
             <p className="text text_color_inactive text_type_main-default pl-2 pt-4 pb-4 pr-5">
               Личный кабинет
             </p>
-          </a>
+          </NavLink>
         </div>
       </nav>
     </header>

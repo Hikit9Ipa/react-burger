@@ -26,9 +26,9 @@ export function RegisterPage() {
     e.preventDefault();
     dispatch(sendRegisterRequest(formData));
   }
-  // if(auth){//redirect to mainpage
-  //   navigate("/");
-  // }
+  if(auth){//redirect to mainpage
+    navigate("/");
+  }
 
   return (
     <section className={styles.container}>

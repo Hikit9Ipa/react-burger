@@ -11,19 +11,13 @@ export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
   
   const location = useLocation();
   const { id } = useParams();
-  const currentIngredientn = useSelector(
-    (state) => state.currentIngredient.currentIngredient
-  );
-  const ingredientVisiblen = useSelector(
-    (state) => state.visible.ingredientVisible
-  );
   const ingredients = useSelector((state) => state.ingredients.ingredients);
   const currIngredient = useMemo(
     () => ingredients.find((ingredient) => ingredient._id === id),
     [ingredients]
   );
-  //console.log(location);
-  if (currIngredient && location.state === null) {
+  //console.log(location +"location");
+   if (currIngredient && location.state === null) {
     return (
       <section className={styles.root}>
         <img src={currIngredient.image_large} alt={currIngredient.name} />
@@ -59,20 +53,5 @@ export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
       </section>
     );
   }
-  if (currIngredient && location.state == "ingredient") {
-    return (
-      <>
-        <MainPage
-          openIngredientModaln={openIngredientModaln}
-          openOrderModal={openOrderModal}
-        />
-        {ingredientVisiblen && 
-        <Modal header={"Детали ингредиента"}>
-          <IngredientDetails currentIngredient={currentIngredientn} />
-        </Modal>}
-      </>
-    );
-  } else {
-    return <div>error</div>;
-  }
-}
+  
+ }
