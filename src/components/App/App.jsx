@@ -61,7 +61,7 @@ function App() {
   };
 
   const openOrderModal = (orderData) => {
-    dispatch(getOrderDisp(orderData));
+    if(auth)dispatch(getOrderDisp(orderData));
   };
 
   useEffect(() => {
