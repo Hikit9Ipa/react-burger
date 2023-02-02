@@ -184,7 +184,6 @@ export function sendGetUserInfoRequest() {
       .catch(() => {
         if (getCookie("refreshToken")) {
           dispatch(sendRefreshTokenRequest());
-
           getUserInfo().then((res) => {
             if (res.success) {
               dispatch({
@@ -225,6 +224,35 @@ export function sendRefreshUserInfoRequest(data) {
           });
         }
       })
-      .catch(() => dispatch({ type: UPDATE_USER_FAILED }));
+      .catch(() => {
+        if (getCookie("refreshToken")) {
+          dispatch(sendRefreshTokenRequest());
+          dispatch({ type: UPDATE_USER_REQUEST });
+          fetch(`${url}auth/user`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + getCookie("accessToken"),
+            },
+            body: JSON.stringify({
+              name: data.name,
+              email: data.email,
+              password: data.password,
+            }),
+          })
+            .then(checkResponse)
+            .then((res) => {
+              if (res.success) {
+                dispatch({
+                  type: UPDATE_USER_SUCCESS,
+                  user: res.user,
+                });
+              }
+            });
+        } else {
+          dispatch({ type: UPDATE_USER_FAILED });
+          
+        }
+      });
   };
 }
