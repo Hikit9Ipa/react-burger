@@ -18,16 +18,25 @@
   margin: 0;
 }
 .menuItem{
+  color:#8585AD;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  
 }
+.menuItem_active{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #F2F2F3;
+}
+ .menuItem_active path {
+  fill: #FFFFFF;
+ }
 .logo{
   justify-self: center;
 	align-self: center;
 }
 .profile{
   justify-self: self-end;
-}
-.active{
-  text-decoration: none;
 }

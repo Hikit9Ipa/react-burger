@@ -16,7 +16,7 @@ export function ResetPasswordPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     if(location.state!=="FPass"){
-      console.log(location.state + "not /forgot-password")
+     
       navigate("/forgot-password");
     }
   }, []);

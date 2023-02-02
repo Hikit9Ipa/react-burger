@@ -36,7 +36,6 @@ export function sendForgotPassEmail(email) {
       body: JSON.stringify({ email }),
     })
       .then(checkResponse)
-      .then((res) => console.log(res))
       .then(() => {
         dispatch({ type: RESTORE_PASS_SUCCESS });
       })
@@ -46,7 +45,6 @@ export function sendForgotPassEmail(email) {
 ////Смена пароля!
 export function sendResetPassRequest(data) {
   return function (dispatch) {
-    console.log(`${url}password-reset/reset`);
     dispatch({ type: RESET_PASS_REQUEST });
     fetch(`${url}password-reset/reset`, {
       method: "POST",
@@ -54,7 +52,6 @@ export function sendResetPassRequest(data) {
       body: JSON.stringify(data),
     })
       .then(checkResponse)
-      .then((res) => console.log(res))
       .then(() => {
         dispatch({ type: RESET_PASS_SUCCESS });
       })
@@ -113,31 +110,6 @@ export function sendLoginRequest(data) {
       .catch(() => dispatch({ type: LOGIN_USER_FAILED }));
   };
 }
-
-//эндпоинт для обновление токена
-export function sendRefreshTokenRequest() {
-  return function (dispatch) {
-    dispatch({ type: REFRESH_TOKEN_REQUEST });
-    fetch(`${url}auth/token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: getCookie("refreshToken") }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          console.log(res);
-          setCookie("token", res.accessToken, { expires: 1200 });
-          setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: REFRESH_TOKEN_SUCCESS,
-            user: res.user,
-          });
-        }
-      })
-      .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }));
-  };
-}
 //эндпоинт для выхода из системы
 export function sendLogoutRequest() {
   return function (dispatch) {
@@ -150,7 +122,6 @@ export function sendLogoutRequest() {
       .then(checkResponse)
       .then((res) => {
         if (res.success) {
-          console.log(res);
           deleteCookie("accessToken");
           deleteCookie("refreshToken");
           dispatch({
@@ -162,18 +133,46 @@ export function sendLogoutRequest() {
       .catch(() => dispatch({ type: LOGOUT_USER_FAILED }));
   };
 }
+
+const refreshToken = () =>
+  fetch(`${url}auth/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: getCookie("refreshToken") }),
+  }).then(checkResponse);
+
+const getUserInfo = () =>
+  fetch(`${url}auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("accessToken"),
+    },
+  }).then(checkResponse);
+
+//эндпоинт для обновление токена
+export function sendRefreshTokenRequest() {
+  return function (dispatch) {
+    dispatch({ type: REFRESH_TOKEN_REQUEST });
+    refreshToken()
+      .then((res) => {
+        if (res.success) {
+          setCookie("accessToken", res.accessToken.split("Bearer ")[1], {
+            expires: 1200,
+          });
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({ type: REFRESH_TOKEN_SUCCESS, user: res.user });
+        }
+      })
+      .then(checkResponse)
+      .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }));
+  };
+}
 //эндпоинт получения данных о пользователе
 export function sendGetUserInfoRequest() {
   return function (dispatch) {
     dispatch({ type: GET_USER_REQUEST });
-    fetch(`${url}auth/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + getCookie("accessToken"),
-      },
-    })
-      .then(checkResponse)
+    getUserInfo()
       .then((res) => {
         if (res.success) {
           dispatch({
@@ -183,34 +182,19 @@ export function sendGetUserInfoRequest() {
         }
       })
       .catch(() => {
-        console.log(getCookie("refreshToken"));
         if (getCookie("refreshToken")) {
           dispatch(sendRefreshTokenRequest());
-          //  dispatch({ type: GET_USER_REQUEST });
-          fetch(`${url}auth/user`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: "Bearer " + getCookie("accessToken"),
-            },
-          })
-            // .then((res)=>{console.log(res)})
-            //   .then(checkResponse)
-            .then((res) => {
-              // console.log("res");
-              if (res.success) {
-                //console.log("res2");
-                dispatch({
-                  type: GET_USER_SUCCESS,
-                  user: res.user,
-                });
-                //  }
-              } else {
-                dispatch({ type: GET_USER_FAILED });
-              }
-            });
-        } else {
-          dispatch({ type: GET_USER_FAILED });
+
+          getUserInfo().then((res) => {
+            if (res.success) {
+              dispatch({
+                type: GET_USER_SUCCESS,
+                user: res.user,
+              });
+            } else {
+              dispatch({ type: GET_USER_FAILED });
+            }
+          });
         }
       });
   };
@@ -224,7 +208,7 @@ export function sendRefreshUserInfoRequest(data) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        authorization: "Bearer " + getCookie("accessToken"),
+        Authorization: "Bearer " + getCookie("accessToken"),
       },
       body: JSON.stringify({
         name: data.name,
@@ -235,7 +219,6 @@ export function sendRefreshUserInfoRequest(data) {
       .then(checkResponse)
       .then((res) => {
         if (res.success) {
-          console.log(res);
           dispatch({
             type: UPDATE_USER_SUCCESS,
             user: res.user,

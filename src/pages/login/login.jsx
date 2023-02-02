@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { sendLoginRequest } from "../../utils/Api/AuthApi";
 export function LoginPage() {
-  console.log('login');
+ 
   const { auth } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ export function LoginPage() {
     dispatch(sendLoginRequest({ ...formData }));
   };
   if (auth) {
-    console.log("Navigate in page")
+   
     return <Navigate to="/"></Navigate>;
   }
   return (

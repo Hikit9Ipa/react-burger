@@ -16,7 +16,7 @@ export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
     () => ingredients.find((ingredient) => ingredient._id === id),
     [ingredients]
   );
-  //console.log(location +"location");
+  
    if (currIngredient && location.state === null) {
     return (
       <section className={styles.root}>

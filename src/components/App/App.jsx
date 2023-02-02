@@ -38,7 +38,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(!auth && getCookie("accessToken") ){
+    if(!auth && getCookie("refreshToken") ){
     dispatch(sendGetUserInfoRequest());
   }
   }, []);

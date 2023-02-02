@@ -8,10 +8,7 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import Modal from "../../components/Modal/Modal";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 export function MainPage({ openIngredientModaln, openOrderModal }) {
-  // useEffect(() => {
-  //   console.log("main");
-   
-  // }, []);
+
   const ingredientVisiblen = useSelector(
     (state) => state.visible.ingredientVisible
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './404.module.css';
 
 export function Page404() {
-  console.log("404")
+  
   return (
     <div className={styles.div}>
       <div>

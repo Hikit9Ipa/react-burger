@@ -9,7 +9,7 @@ const initialConstructorState = {
 const constructorReducer = (state = initialConstructorState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      //console.log("ADD_INGREDIENT", action.draggedIngredient);
+      
       return {
         ...state,
         constructorIngredients: [
@@ -22,7 +22,7 @@ const constructorReducer = (state = initialConstructorState, action) => {
       const delItemindex = state.constructorIngredients
         .map((item) => item.key)
         .indexOf(action.id);
-      //console.log("del_INGREDIENT");
+     
       return {
         ...state,
         constructorIngredients: [...state.constructorIngredients].filter(

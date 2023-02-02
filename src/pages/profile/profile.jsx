@@ -27,14 +27,14 @@ import { useDispatch, useSelector } from "react-redux";
 
   const hadleChangeFormData = (e) => {
     e.preventDefault();
-    // setFormData({ ...formData, [e.target.name]: e.target.value });
-    // setButtonsShow(true);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setButtonsShow(true);
   };
 
   const handleReset = (e) => {
     e.preventDefault();
-    // setFormData({ ...user, name: '', email: '', password: '' });
-    // setButtonsShow(false);
+    setFormData({ ...user, name: '', email: '', password: '' });
+    setButtonsShow(false);
   };
 
   const handleLogout = (e) => {
@@ -45,8 +45,8 @@ import { useDispatch, useSelector } from "react-redux";
 
   const handleUserUpdate = (e) => {
     e.preventDefault();
-    // dispatch(sendRefreshUserInfoRequest(formData));
-    // setButtonsShow(true);
+    dispatch(sendRefreshUserInfoRequest(formData));
+    setButtonsShow(false);
   };
  
   
@@ -55,12 +55,14 @@ import { useDispatch, useSelector } from "react-redux";
     <section className={`${styles.container} pl-5 pt-20`}>
       <div className={ `${styles.menu} mr-15` }>
         <nav className={styles.nav}>
-          <NavLink to='/profile'  className={ `${styles.link} text text_type_main-medium text_color_inactive`} >
+          
+          <NavLink to='/profile' className={({isActive})=> isActive ? `${styles.link_Active} text text_type_main-medium `: `text_color_inactive`} >
             Профиль
           </NavLink>
-          <NavLink to='/profile/orders'  className={ `${styles.link} text text_type_main-medium text_color_inactive` } >
-            История заказов
+          <NavLink to='/profile/orders' className={({isActive})=> isActive ? `${styles.link_Active} text text_type_main-medium `: `${styles.link} text text_type_main-medium text_color_inactive`} >
+          История заказов
           </NavLink>
+          
           <button type="button" className={ `${styles.link} text text_type_main-medium text_color_inactive` } onClick={ handleLogout }>
             Выход
           </button>

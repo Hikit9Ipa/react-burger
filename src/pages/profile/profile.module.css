@@ -55,7 +55,12 @@
   background-color: transparent;
   cursor: pointer;
 }
-
-.linkActive {
+.link_Active {
+  line-height: 64px;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
   color: #F2F2F3;
 }
+

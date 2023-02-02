@@ -192,7 +192,7 @@ const authReduser = (state = initialAuthState, action) => {
           ...state,
           updateUserRequest: true,
           updateUserFailed: false,
-          user:action.user,
+          
         };
       }
       case (UPDATE_USER_SUCCESS): {
@@ -200,6 +200,7 @@ const authReduser = (state = initialAuthState, action) => {
           ...state,
           updateUserRequest: false,
           updateUserFailed: false,
+          user:action.user,
         };
       }
       case (UPDATE_USER_FAILED): {

@@ -31,7 +31,6 @@ function BurgerConstructor({ openOrderModal} ) {
   const burgerBunIds = constructorIngredients
     .filter((item) => item.type == "bun")
     .map((item) => item._id);
-  //const orderNum = useSelector((state) => state.order.order);
   const orderIds = [
     ...constructorIngredients.map((item) => item._id),
     burgerBunIds,
@@ -55,7 +54,7 @@ function BurgerConstructor({ openOrderModal} ) {
           type: ADD_INGREDIENT,
           draggedIngredient: { ...item, key: uuidv4() },
         });
-        //console.log(burgerBun);
+       
       }
     },
   });
