@@ -169,7 +169,7 @@ export function sendRefreshTokenRequest() {
   };
 }
 //эндпоинт получения данных о пользователе
-export function sendGetUserInfoRequest() {
+export function sendGetUserInfoRequest1() {
   return function (dispatch) {
     dispatch({ type: GET_USER_REQUEST });
     getUserInfo()
@@ -226,33 +226,123 @@ export function sendRefreshUserInfoRequest(data) {
       })
       .catch(() => {
         if (getCookie("refreshToken")) {
-          dispatch(sendRefreshTokenRequest());
-          dispatch({ type: UPDATE_USER_REQUEST });
-          fetch(`${url}auth/user`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + getCookie("accessToken"),
-            },
-            body: JSON.stringify({
-              name: data.name,
-              email: data.email,
-              password: data.password,
-            }),
-          })
-            .then(checkResponse)
+          dispatch({ type: REFRESH_TOKEN_REQUEST });
+          refreshToken()
             .then((res) => {
               if (res.success) {
-                dispatch({
-                  type: UPDATE_USER_SUCCESS,
-                  user: res.user,
+                setCookie("accessToken", res.accessToken.split("Bearer ")[1], {
+                  expires: 1200,
                 });
+                setCookie("refreshToken", res.refreshToken);
+                dispatch({ type: REFRESH_TOKEN_SUCCESS, user: res.user });
               }
+            })
+            .then(checkResponse)
+            .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }))
+            .then(() => {
+              dispatch({ type: UPDATE_USER_REQUEST });
+              fetch(`${url}auth/user`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + getCookie("accessToken"),
+                },
+                body: JSON.stringify({
+                  name: data.name,
+                  email: data.email,
+                  password: data.password,
+                }),
+              })
+                .then(checkResponse)
+                .then((res) => {
+                  if (res.success) {
+                    dispatch({
+                      type: UPDATE_USER_SUCCESS,
+                      user: res.user,
+                    });
+                  } else {
+                    dispatch({ type: UPDATE_USER_FAILED });
+                  }
+                });
             });
-        } else {
-          dispatch({ type: UPDATE_USER_FAILED });
-          
         }
       });
   };
 }
+  //эндпоинт получения данных о пользователе
+  export function sendGetUserInfoRequest() {
+    return function (dispatch) {
+      dispatch({ type: GET_USER_REQUEST });
+      getUserInfo()
+        .then((res) => {
+          if (res.success) {
+            dispatch({
+              type: GET_USER_SUCCESS,
+              user: res.user,
+            });
+          }
+        })
+        .catch(() => {
+          if (getCookie("refreshToken")) {
+            dispatch({ type: REFRESH_TOKEN_REQUEST });
+            refreshToken()
+              .then((res) => {
+                if (res.success) {
+                  setCookie(
+                    "accessToken",
+                    res.accessToken.split("Bearer ")[1],
+                    {
+                      expires: 1200,
+                    }
+                  );
+                  setCookie("refreshToken", res.refreshToken);
+                  dispatch({ type: REFRESH_TOKEN_SUCCESS, user: res.user });
+                }
+              })
+              .then(checkResponse)
+              .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }))
+              .then(() => {
+                getUserInfo().then((res) => {
+                  if (res.success) {
+                    dispatch({
+                      type: GET_USER_SUCCESS,
+                      user: res.user,
+                    });
+                  } else {
+                    dispatch({ type: GET_USER_FAILED });
+                  }
+                });
+              });
+          } else dispatch({ type: GET_USER_FAILED });
+        });
+    };
+  }
+
+
+//       // dispatch(sendRefreshTokenRequest());
+//       getUserInfo().then((res) => {
+//         if (res.success) {
+//           dispatch({
+//             type: GET_USER_SUCCESS,
+//             user: res.user,
+//           });
+//         } else {
+//           dispatch({ type: GET_USER_FAILED });
+//         }
+//       });
+//     }
+// });
+
+// dispatch({ type: REFRESH_TOKEN_REQUEST });
+// refreshToken()
+//   .then((res) => {
+//     if (res.success) {
+//       setCookie("accessToken", res.accessToken.split("Bearer ")[1], {
+//         expires: 1200,
+//       });
+//       setCookie("refreshToken", res.refreshToken);
+//       dispatch({ type: REFRESH_TOKEN_SUCCESS, user: res.user });
+//     }
+//   })
+//   .then(checkResponse)
+//   .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }));

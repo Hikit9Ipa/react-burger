@@ -7,19 +7,22 @@ import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 import { useEffect } from "react";
 import { CLOSE_INGREDIENT,CLOSE_ORDER } from "../../services/reducers/visibleModals";
+import { useNavigate } from "react-router-dom";
 function Modal({header, children, onClick}) {
-
+ const navigate = useNavigate();
   
   const modals = document.getElementById("react-modals");
   const dispatch = useDispatch();
   const closeModal = () => {
     dispatch({ type: CLOSE_INGREDIENT });
     dispatch({ type: CLOSE_ORDER });
+    navigate(-1);
   };
 
   useEffect(() => {
     const closeEsc = (e) => {
       e.key === "Escape" && closeModal();
+
     };
     window.addEventListener("keydown", closeEsc);
     return () => {window.removeEventListener('keydown', closeEsc);}
