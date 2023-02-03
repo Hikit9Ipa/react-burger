@@ -1,0 +1,35 @@
+.list{
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+	column-gap: 24px;
+	row-gap: 32px;
+    /* gap:24px; */
+    margin-bottom: 0px;
+    list-style-type: none;
+}
+.item {
+    position: relative;
+	list-style-type: none;
+	width: 272px;
+    height:208px ;
+    
+}
+.img{
+width: 240px;
+height: 120px;
+}
+.price{
+    display: flex;
+    justify-content: center;
+    
+}
+.caption{
+    text-align: center;
+}
+.link {
+    text-decoration: none;
+    color: #ffffff;
+  }

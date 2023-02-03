@@ -1,0 +1,26 @@
+
+.section {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  max-height: calc(100vh - 168px);
+}
+.ingredients {
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+  
+}
+
+.ingredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  height: 492px;
+}

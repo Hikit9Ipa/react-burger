@@ -1,0 +1,34 @@
+.scrollitems{
+    max-height: calc(100vh - 525px);
+    overflow-y: auto;
+}
+.scrollitems::-webkit-scrollbar {
+    width: 8px;
+    
+  }
+  
+.scrollitems::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+  
+  .scrollitems::-webkit-scrollbar-thumb {
+    background: #8585ad;
+    height: 292px;
+  }
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .sum {
+    display: flex;
+    align-items: center;
+  }
+  
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
