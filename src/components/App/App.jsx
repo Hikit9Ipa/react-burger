@@ -19,7 +19,7 @@ import {
   ResetPasswordPage,
   IngredientsPage,
   FeedPage,
-  ProfileOrdersPage
+  ProfileOrdersPage,
 } from "../../pages";
 import FeedDetails from "../FeedDetails/feeddeteils";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
@@ -34,15 +34,13 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if(!auth && getCookie("refreshToken") ){
-    dispatch(sendGetUserInfoRequest());
-  }
+    if (!auth && getCookie("refreshToken")) {
+      dispatch(sendGetUserInfoRequest());
+    }
   }, []);
   const location = useLocation();
   const orderNum = useSelector((state) => state.order.order.number);
   const orderS = useSelector((state) => state.order.orderRequest);
-
-  
 
   const openIngredientModaln = (item) => {
     dispatch({ type: ADD_CURRENT_INGREDIENT, item });
@@ -50,7 +48,7 @@ function App() {
   };
 
   const openOrderModal = (orderData) => {
-    if(auth)dispatch(getOrderDisp(orderData));
+    if (auth) dispatch(getOrderDisp(orderData));
   };
 
   useEffect(() => {
@@ -60,7 +58,7 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <AppHeader />
-       <Routes>
+      <Routes>
         <Route
           path="/"
           exact={true}
@@ -69,37 +67,101 @@ function App() {
               openIngredientModaln={openIngredientModaln}
               openOrderModal={openOrderModal}
             />
-          } />
-        
-            <Route path="/404" exact={true} element={<Page404 />} />
-            <Route path="*" exact={true} element={<Page404 />} />
-            <Route path="/login" exact={true} element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
-            <Route path="/register" exact={true} element={<ProtectedRoute onlyUnAuth><RegisterPage /></ProtectedRoute>} />
-            <Route path="/profile" exact={true} element={<ProtectedRoute onlyUnAuth={false}><ProfilePage /></ProtectedRoute>} />
-            <Route path="/forgot-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true}><ForgotPasswordPage /></ProtectedRoute>} />
-            <Route path="/reset-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true} ><ResetPasswordPage /></ProtectedRoute>} />
-            <Route path="/profile" exact={true} element={<ProfilePage />} />
-            <Route path="/feed" exact={true} element={<FeedPage/>}/>
-            <Route path="/feed/:id" exact={true} element={<FeedDetails/>}/>
-            <Route path="/profile/orders" exact={true} element={<ProtectedRoute onlyUnAuth={false}> <ProfileOrdersPage/></ProtectedRoute>} />
-            <Route path="/profile/orders/:id" exact={true} element={<ProtectedRoute onlyUnAuth={false}><FeedDetails/></ProtectedRoute>} />
-            {location.state == "ingredient"  && (
-              
-        <Route
-          path="/ingredients/:id"
-          element={
-            <MainPage
-              openIngredientModaln={openIngredientModaln}
-              openOrderModal={openOrderModal}></MainPage>
           }
         />
-      )} else {
-        <Route path="/ingredients/:id"
-         exact={true} element={
-         <IngredientsPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>
+        <Route path="/404" exact={true} element={<Page404 />} />
+        <Route path="*" exact={true} element={<Page404 />} />
+        <Route
+          path="/login"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <RegisterPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth={false}>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth={true}>
+              <ForgotPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth={true}>
+              <ResetPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/profile" exact={true} element={<ProfilePage />} />
+        <Route path="/feed" exact={true} element={<FeedPage />} />
+        <Route path="/feed/:id" exact={true} element={<FeedDetails />} />
+        <Route
+          path="/profile/orders"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth={false}>
+              {" "}
+              <ProfileOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/orders/:id"
+          exact={true}
+          element={
+            <ProtectedRoute onlyUnAuth={false}>
+              <FeedDetails />
+            </ProtectedRoute>
+          }
+        />
+        {location.state == "ingredient" && (
+          <Route
+            path="/ingredients/:id"
+            element={
+              <MainPage
+                openIngredientModaln={openIngredientModaln}
+                openOrderModal={openOrderModal}
+              ></MainPage>
+            }
+          />
+        )}{" "}
+        else{" "}
+        {
+          <Route
+            path="/ingredients/:id"
+            exact={true}
+            element={
+              <IngredientsPage
+                openIngredientModaln={openIngredientModaln}
+                openOrderModal={openOrderModal}
+              />
+            }
+          />
         }
-        /> 
-      }
       </Routes>
     </DndProvider>
   );
