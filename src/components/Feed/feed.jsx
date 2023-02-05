@@ -30,7 +30,7 @@ function Feed() {
               status={item.status}
               createdAt={item.createdAt}
               components={item.ingredients}
-              isUserOrders={routeMatch}
+              routeMatch={routeMatch}
             />
           ))}
         </ul>

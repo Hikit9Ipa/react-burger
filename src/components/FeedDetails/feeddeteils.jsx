@@ -73,8 +73,8 @@ function FeedDetails() {
       : 0;
   }, [feedIngredients]);
   return (
-    <div className={styles.container}>
-      <section className={styles.containerModal}>
+    <section className={styles.section}>
+      <div>
         {currentOrder && (
           <>
             <h2 className={`${styles.name} text text_type_main-medium`}>
@@ -127,8 +127,8 @@ function FeedDetails() {
             </div>
           </>
         )}
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
