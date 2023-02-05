@@ -1,0 +1,38 @@
+.section {
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  column-gap: 60px;
+}
+
+.feed {
+  align-items: flex-start;
+  width: 600px;
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+
+.items {
+  list-style: none;
+  height: 868px;
+  justify-self: left;
+  width: 100%;
+  margin: 0;
+  padding: 0 8px 0 0;
+  overflow-y: scroll;
+}
+
+.items::-webkit-scrollbar {
+  width: 8px;
+  height: 492px;
+}
+
+.items::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.items::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}

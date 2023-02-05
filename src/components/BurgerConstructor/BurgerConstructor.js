@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState, useReducer } from "react";
+
 import styles from "./BurgerConstructor.module.css";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../utils/types";
+
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -10,7 +10,7 @@ import {
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import Modal from "../Modal/Modal.jsx";
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-//import orderImg from "../../images/done.svg";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
@@ -118,7 +118,6 @@ function BurgerConstructor({ openOrderModal} ) {
   );
 }
 BurgerConstructor.propTypes = {
-  //ingredients: PropTypes.arrayOf(ingredientPropTypes),
   openOrderModal: PropTypes.func.isRequired,
 };
 

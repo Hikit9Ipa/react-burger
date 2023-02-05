@@ -1,0 +1,63 @@
+.section {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    margin-top: 80px;
+  }
+  
+  .nav {
+    margin: 0 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .link {
+    line-height: 64px;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .link_Active {
+    line-height: 64px;
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #F2F2F3;
+  }
+  
+
+  .list {
+    list-style: none;
+    height: 868px;
+    justify-self: left;
+    width: 100%;
+    
+    margin: 0;
+    padding: 0 8px 0 0;
+    overflow-y: scroll;
+  }
+  
+  .list::-webkit-scrollbar {
+    width: 8px;
+    height: 492px;
+  }
+    
+  .list::-webkit-scrollbar-track {
+    background: #2F2F37;
+  }
+    
+  .list::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+  }

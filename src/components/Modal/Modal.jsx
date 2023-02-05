@@ -16,7 +16,8 @@ function Modal({header, children, onClick}) {
   const closeModal = () => {
     dispatch({ type: CLOSE_INGREDIENT });
     dispatch({ type: CLOSE_ORDER });
-    navigate(-1);
+    navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -48,7 +49,6 @@ function Modal({header, children, onClick}) {
 
 Modal.propTypes = {
   header: PropTypes.string,
-  //onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 export default Modal;

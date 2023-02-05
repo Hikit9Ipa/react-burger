@@ -25,7 +25,10 @@ import {
   RegisterPage,
   ResetPasswordPage,
   IngredientsPage,
+  FeedPage,
+  ProfileOrdersPage
 } from "../../pages";
+import FeedDetails from "../FeedDetails/feeddeteils";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { sendGetUserInfoRequest } from "../../utils/Api/AuthApi.js";
 import { ADD_CURRENT_INGREDIENT } from "../../services/reducers/currentIngredient";
@@ -46,6 +49,7 @@ function App() {
   const backmenu = location.state?.backmenu;
   const currentIngredientn = useSelector(
     (state) => state.currentIngredient.currentIngredient
+
   );
   const ingredientVisiblen = useSelector(
     (state) => state.visible.ingredientVisibles
@@ -84,13 +88,16 @@ function App() {
         
             <Route path="/404" exact={true} element={<Page404 />} />
             <Route path="*" exact={true} element={<Page404 />} />
-            {/* <Route path="/login" exact={true} element={<LoginPage />} />  */}
             <Route path="/login" exact={true} element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
             <Route path="/register" exact={true} element={<ProtectedRoute onlyUnAuth><RegisterPage /></ProtectedRoute>} />
             <Route path="/profile" exact={true} element={<ProtectedRoute onlyUnAuth={false}><ProfilePage /></ProtectedRoute>} />
             <Route path="/forgot-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true}><ForgotPasswordPage /></ProtectedRoute>} />
             <Route path="/reset-password" exact={true} element={<ProtectedRoute onlyUnAuth ={true} ><ResetPasswordPage /></ProtectedRoute>} />
             <Route path="/profile" exact={true} element={<ProfilePage />} />
+            <Route path="/feed" exact={true} element={<FeedPage/>}/>
+            <Route path="/feed/:id" exact={true} element={<FeedDetails/>}/>
+            <Route path="/profile/orders" exact={true} element={<ProtectedRoute onlyUnAuth={false}> <ProfileOrdersPage/></ProtectedRoute>} />
+            <Route path="/profile/orders/:id" exact={true} element={<ProtectedRoute onlyUnAuth={false}><FeedDetails/></ProtectedRoute>} />
             {location.state == "ingredient"  && (
               
         <Route
@@ -102,7 +109,11 @@ function App() {
           }
         />
       )} else {
-        <Route path="/ingredients/:id" exact={true} element={<IngredientsPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>}/> 
+        <Route path="/ingredients/:id"
+         exact={true} element={
+         <IngredientsPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal}/>
+        }
+        /> 
       }
       </Routes>
     </DndProvider>

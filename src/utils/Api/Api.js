@@ -21,8 +21,9 @@ export const getIngredients = () => {
 };
 export const orderPost = (ingredientsIds) => {
   return fetch(`${url}orders`, {
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
+    method: 'POST',
+    headers: {'Content-Type': 'application/json',
+    authorization: "Bearer " + getCookie("accessToken")},
     body: JSON.stringify({ ingredients: ingredientsIds }),
   }).then(checkResponse);
 };
@@ -55,6 +56,7 @@ export function getOrderDisp(Order) {
     });
     orderPost(Order)
       .then((res) => {
+        console.log(res)
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCESS,

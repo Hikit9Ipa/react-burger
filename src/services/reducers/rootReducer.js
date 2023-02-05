@@ -6,6 +6,7 @@ import visibleReducer from "./visibleModals";
 import currentIngredientReducer from "./currentIngredient";
 import orderReducer from "./order";
 import authReduser from "./user";
+import wsReducer from "./wsReducer";
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   constructorReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   currentIngredient: currentIngredientReducer,
   order: orderReducer,
   auth:authReduser,
+  wsReducer
 });
