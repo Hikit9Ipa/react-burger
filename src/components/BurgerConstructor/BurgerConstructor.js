@@ -1,7 +1,7 @@
 
 import styles from "./BurgerConstructor.module.css";
 import PropTypes from "prop-types";
-
+import { useMemo } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -28,17 +28,20 @@ function BurgerConstructor({ openOrderModal} ) {
   const burgerBun = constructorIngredients.filter(
     (item) => item.type === "bun"
   );
-  const burgerBunIds = constructorIngredients
-    .filter((item) => item.type == "bun")
-    .map((item) => item._id);
-  const orderIds = [
+  const burgerBunIds = useMemo(() => {
+    return  constructorIngredients
+    .filter((item) => item.type === "bun")
+    .map((item) => item._id)}, [constructorIngredients]);
+  const orderIds = useMemo(() => {
+    return   [
     ...constructorIngredients.map((item) => item._id),
     burgerBunIds,
-  ];
+  ]}, [constructorIngredients,burgerBunIds]);
   const ordVisible = useSelector((state) => state.visible.orderVisible);
-  const totalPricen = constructorIngredients.reduce((acc, { price }) => {
+  const totalPricen = useMemo(() => {
+    return  constructorIngredients.reduce((acc, { price }) => {
     return acc + parseInt(price);
-  }, 0);
+  }, 0)}, [constructorIngredients]);
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",

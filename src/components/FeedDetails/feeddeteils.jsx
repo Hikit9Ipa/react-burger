@@ -9,7 +9,6 @@ import {
   wsConnectionClosed,
   wsUserConnectionClosed,
 } from "../../services/actions/wsActions";
-//import {FormattedDate}
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { newStatus } from "../../utils/types";
 function FeedDetails() {
@@ -29,7 +28,7 @@ function FeedDetails() {
         dispatch(wsConnectionClosed());
       }
     };
-  }, []);
+  }, [routeMatch,dispatch]);
 
   const orders = useSelector((store) => store.wsReducer.messages.orders);
   const myOrders = useSelector((store) => store.wsReducer.userMessages.orders);
@@ -38,7 +37,8 @@ function FeedDetails() {
   const order = orders && orders.find((item) => item.number === +id);
   const myOrder = myOrders && myOrders.find((item) => item.number === +id);
   const currentOrder = routeMatch ? myOrder : order;
-  const orderIngredients = currentOrder ? currentOrder.ingredients : [];
+  const orderIngredients = useMemo(() => {
+    return currentOrder ? currentOrder.ingredients : [];}, [currentOrder]);
 
   const feedIngredients = useMemo(
     () =>
