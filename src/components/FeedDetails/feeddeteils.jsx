@@ -119,7 +119,7 @@ function FeedDetails() {
             </ul>
             <div className={styles.footer}>
               <p className="text text_type_main-default text_color_inactive">
-                {currentOrder.createdAt}ss
+                {currentOrder.createdAt}
               </p>
               <p className={`${styles.price} text text_type_digits-default`}>
                 {price}
