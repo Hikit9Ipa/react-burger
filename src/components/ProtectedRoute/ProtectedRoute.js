@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+
 import { useSelector } from "react-redux";
-import { getCookie } from "../../utils/cookie/cookie";
 import { useLocation, Navigate } from "react-router-dom";
 export function ProtectedRoute({ children, onlyUnAuth }) {
   //onlyUnAuth только для неавторизированных пользователей

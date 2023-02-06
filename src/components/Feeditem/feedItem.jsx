@@ -1,7 +1,7 @@
 import styles from "./feedItem.module.css";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
 function FeedItem({
@@ -61,7 +61,8 @@ function FeedItem({
       <p
         className={`${styles.date} text text_type_main-default text_color_inactive`}
       >
-        {createdAt}
+        <FormattedDate date={new Date(createdAt)} />
+        {/* {createdAt} */}
       </p>
       <p className={`${styles.name} text text_type_main-medium`}>{name}</p>
       {routeMatch && (

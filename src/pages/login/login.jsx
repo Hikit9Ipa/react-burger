@@ -57,7 +57,7 @@ export function LoginPage() {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType="button">
           Войти
         </Button>
       </form>
