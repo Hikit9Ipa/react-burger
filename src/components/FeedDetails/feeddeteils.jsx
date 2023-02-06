@@ -11,6 +11,7 @@ import {
 } from "../../services/actions/wsActions";
 //import {FormattedDate}
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { newStatus } from "../../utils/types";
 function FeedDetails() {
   const dispatch = useDispatch();
   const routeMatch = useMatch({ path: "/profile/orders/:id" });
@@ -86,7 +87,7 @@ function FeedDetails() {
                 currentOrder.status === "done" && styles.done
               } ${currentOrder.status === "canceled" && styles.canceled}`}
             >
-              {currentOrder.status}
+              {newStatus(currentOrder.status)}
             </p>
             <p className="text text_type_main-medium">Состав:</p>
             <ul className={styles.list}>
@@ -119,7 +120,8 @@ function FeedDetails() {
             </ul>
             <div className={styles.footer}>
               <p className="text text_type_main-default text_color_inactive">
-                {currentOrder.createdAt}
+                
+                <FormattedDate date={new Date(currentOrder.createdAt)} />
               </p>
               <p className={`${styles.price} text text_type_digits-default`}>
                 {price}

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
+import { newStatus } from "../../utils/types";
 function FeedItem({
   number,
   name,
@@ -12,6 +13,7 @@ function FeedItem({
   components,
   routeMatch
 }) {
+  
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const orderIngredients = useMemo(
     () =>
@@ -62,7 +64,7 @@ function FeedItem({
         className={`${styles.date} text text_type_main-default text_color_inactive`}
       >
         <FormattedDate date={new Date(createdAt)} />
-        {/* {createdAt} */}
+       
       </p>
       <p className={`${styles.name} text text_type_main-medium`}>{name}</p>
       {routeMatch && (
@@ -71,7 +73,7 @@ function FeedItem({
             status === "done" && styles.done
           } ${status === "canceled" && styles.canceled}`}
         >
-          {status}
+          {newStatus(status)}
         </p>
       )}
       <div className={styles.icons}>
