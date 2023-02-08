@@ -44,7 +44,7 @@ function AppHeader() {
           </li>
         </ul>
         <div className={styles.logo}>
-          <NavLink to="/404">
+          <NavLink to="/">
             <Logo />
           </NavLink>
         </div>

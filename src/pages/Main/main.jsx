@@ -8,22 +8,10 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import Modal from "../../components/Modal/Modal";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 export function MainPage({ openIngredientModaln, openOrderModal }) {
-
-  const ingredientVisiblen = useSelector(
-    (state) => state.visible.ingredientVisible
-  );
-  const currentIngredientn = useSelector(
-    (state) => state.currentIngredient.currentIngredient
-  );
   return (
     <main className={styles.main}>
       <BurgerIngredients openIngredientModaln={openIngredientModaln} />
       <BurgerConstructor openOrderModal={openOrderModal} />
-      {ingredientVisiblen && (
-          <Modal header={"Детали ингредиента"}>
-            <IngredientDetails currentIngredient={currentIngredientn} />
-          </Modal>
-        )}
     </main>
   );
 }

@@ -7,8 +7,8 @@ import { MainPage } from "../Main/main";
 import Modal from "../../components/Modal/Modal";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 
-export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
-  
+export function IngredientsPage() {
+  console.log("IngredientsPage")
   const location = useLocation();
   const { id } = useParams();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -17,7 +17,7 @@ export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
     [ingredients]
   );
   
-   if (currIngredient && location.state === null) {
+  if (currIngredient) {
     return (
       <section className={styles.root}>
         <img src={currIngredient.image_large} alt={currIngredient.name} />
@@ -52,6 +52,6 @@ export function IngredientsPage( { openIngredientModaln, openOrderModal }) {
         </div>
       </section>
     );
-  }
+    }
   
  }

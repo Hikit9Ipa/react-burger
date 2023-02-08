@@ -31,7 +31,7 @@ export function LoginPage() {
   };
   if (auth) {
    
-    return <Navigate to="/"></Navigate>;
+    return <Navigate to="-1"></Navigate>;
   }
   return (
     <section className={styles.container}>

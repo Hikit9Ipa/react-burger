@@ -72,7 +72,7 @@ function BurgerConstructor({ openOrderModal} ) {
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={burgerBun[0].name}
+              text={burgerBun[0].name+" (верх)"}
               price={burgerBun[0].price}
               thumbnail={burgerBun[0].image}
             />
@@ -92,7 +92,7 @@ function BurgerConstructor({ openOrderModal} ) {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={burgerBun[0].name}
+              text={burgerBun[0].name+" (низ)"}
               price={burgerBun[0].price}
               thumbnail={burgerBun[0].image}
             />

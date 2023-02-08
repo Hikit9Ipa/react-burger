@@ -15,8 +15,7 @@ const Ingredients = forwardRef(({ openModal, title, ingredients },ref)=>{
       <h2 className="text text_type_main-medium pt-10">{title}</h2>
       <ul  className={`${styles.list} mt-6 mr-2 ml-4`}>
         {ingredients.map(element => (
-          <Ingredient  element={element} 
-           key={element._id} openModal={openModal}> </Ingredient>
+          <Ingredient  element={element} key={element._id} openModal={openModal}> </Ingredient>
         ))}
       </ul>
     </li>
