@@ -12,11 +12,12 @@ export function IngredientsPage() {
   const location = useLocation();
   const { id } = useParams();
   const ingredients = useSelector((state) => state.ingredients.ingredients);
+  console.log(ingredients);
   const currIngredient = useMemo(
     () => ingredients.find((ingredient) => ingredient._id === id),
     [ingredients]
   );
-  
+  console.log(currIngredient);
   if (currIngredient) {
     return (
       <section className={styles.root}>

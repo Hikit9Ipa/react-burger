@@ -8,26 +8,25 @@ import {useDispatch} from "react-redux";
 import { useEffect } from "react";
 import { CLOSE_INGREDIENT,CLOSE_ORDER } from "../../services/reducers/visibleModals";
 import { useNavigate } from "react-router-dom";
-function Modal({header, children, onClick}) {
+function Modal({header, children, closeModal}) {
  const navigate = useNavigate();
   
-  const modals = document.getElementById("react-modals");
-  const dispatch = useDispatch();
-  const closeModal = () => {
-    dispatch({ type: CLOSE_INGREDIENT });
-    dispatch({ type: CLOSE_ORDER });
-    navigate("/");
-    window.location.reload();
-  };
+   const modals = document.getElementById("react-modals");
+  // const dispatch = useDispatch();
+  // const closeModal = () => {
+  //   dispatch({ type: CLOSE_INGREDIENT });
+  //   dispatch({ type: CLOSE_ORDER });
+  //    navigate(-1);
+  // };
 
-  useEffect(() => {
-    const closeEsc = (e) => {
-      e.key === "Escape" && closeModal();
+  // useEffect(() => {
+  //   const closeEsc = (e) => {
+  //     e.key === "Escape" && closeModal();
 
-    };
-    window.addEventListener("keydown", closeEsc);
-    return () => {window.removeEventListener('keydown', closeEsc);}
-  }, [closeModal]);
+  //   };
+  //   window.addEventListener("keydown", closeEsc);
+  //   return () => {window.removeEventListener('keydown', closeEsc);}
+  // }, [closeModal]);
 
   return ReactDOM.createPortal (
     <>
@@ -41,7 +40,6 @@ function Modal({header, children, onClick}) {
           </div>
           {children}
         </div>
-      
     </>,
     modals
   );

@@ -9,6 +9,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails.jsx";
 import {
   OPEN_ORDER,
   OPEN_INGREDIENT,
+  CLOSE_INGREDIENT,CLOSE_ORDER 
 } from "../../services/reducers/visibleModals";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { sendGetUserInfoRequest } from "../../utils/Api/AuthApi.js";
 import { ADD_CURRENT_INGREDIENT } from "../../services/reducers/currentIngredient";
 import { getCookie } from "../../utils/cookie/cookie";
-
+import { FeedModal } from "../FeedModal/FeedModal.jsx";
 
 
 
@@ -65,6 +66,24 @@ function App() {
     console.log(auth)
     
   };
+
+  const modals = document.getElementById("react-modals");
+  const closeModal = () => {
+    dispatch({ type: CLOSE_INGREDIENT });
+    dispatch({ type: CLOSE_ORDER });
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    const closeEsc = (e) => {
+      e.key === "Escape" && closeModal();
+    };
+    window.addEventListener("keydown", closeEsc);
+    return () => {
+      window.removeEventListener("keydown", closeEsc);
+    };
+  }, [closeModal]);
+
   const currentIngredientn = useSelector(
     (state) => state.currentIngredient.currentIngredient
   );
@@ -72,12 +91,10 @@ function App() {
     if (orderNum !== null) dispatch({ type: OPEN_ORDER });
   }, [orderNum, orderS]);
   const background = location.state?.background;
-   console.log(background);
-   console.log(location)
   return (
     <DndProvider backend={HTML5Backend}>
       <AppHeader />
-      <Routes location={background ?? location}>
+      <Routes location={background || location}>
         <Route path="/" element={ <MainPage openIngredientModaln={openIngredientModaln} openOrderModal={openOrderModal} /> } />
         <Route path="/ingredients/:id" element={<IngredientsPage></IngredientsPage>} />
         <Route path="/404" element={<Page404 />} />
@@ -92,8 +109,13 @@ function App() {
         <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/profile/orders" element={<ProtectedRoute onlyUnAuth={false}> <ProfileOrdersPage /> </ProtectedRoute>}/>
         <Route path="/profile/orders/:id" element={ <ProtectedRoute onlyUnAuth={false}> <FeedDetails /> </ProtectedRoute>}/>
-        {background&&(<Route path="/ingredients/:id"element={<div>1234</div>}></Route>)}
       </Routes>
+      {background && ( <Routes>
+        <Route path="/ingredients/:id" element={<Modal closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
+        <Route path="/feed/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
+        <Route path="/profile/orders/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
+        {/* <Route path="/ingredients/:id" element={<Modal><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route> */}
+        </Routes>)}
     </DndProvider>
   );
 }

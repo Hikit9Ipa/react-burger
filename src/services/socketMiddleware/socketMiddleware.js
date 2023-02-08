@@ -1,6 +1,6 @@
 import { getCookie } from "../../utils/cookie/cookie";
 
-const middleware = (url, actions) => {
+const socketMiddleware = (url, actions) => {
   return (store) => {
     let socket = null;
 
@@ -10,12 +10,12 @@ const middleware = (url, actions) => {
       const { wsInit, onOpen, onClose, onError, onMessage } = actions;
 
       const { auth } = getState().auth;
-      const token = auth
+      const query = auth
         ? `?token=${getCookie("accessToken")}`
         : '';
 
         if (type === wsInit) {
-          socket = new WebSocket(`${url}${token}`);
+          socket = new WebSocket(`${url}${query}`);
         } else if (socket && type === onClose) {
         socket.close();
         }
@@ -45,4 +45,4 @@ const middleware = (url, actions) => {
   };
 }
 
-export default middleware;
+export default socketMiddleware;

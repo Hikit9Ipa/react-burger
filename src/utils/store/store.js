@@ -5,7 +5,7 @@ import {
 } from "redux";
 import { rootReducer } from "../../services/reducers/rootReducer";
 import thunk from "redux-thunk";
-import middleware from "../../services/middleware/middleware";
+import socketMiddleware from "../../services/socketMiddleware/socketMiddleware";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -43,8 +43,8 @@ const composeEnhancers =
 export const enhancer = composeEnhancers(
   applyMiddleware(
     thunk,
-    middleware("wss://norma.nomoreparties.space/orders/all", wsActions),
-    middleware("wss://norma.nomoreparties.space/orders", wsUserActions)
+    socketMiddleware("wss://norma.nomoreparties.space/orders/all", wsActions),
+    socketMiddleware("wss://norma.nomoreparties.space/orders", wsUserActions)
   )
 );
 

@@ -30,7 +30,6 @@ export function LoginPage() {
     dispatch(sendLoginRequest({ ...formData }));
   };
   if (auth) {
-   
     return <Navigate to="-1"></Navigate>;
   }
   return (
