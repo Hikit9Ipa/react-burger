@@ -7,16 +7,17 @@ export function ProtectedRoute({ children, onlyUnAuth }) {
   const { auth } = useSelector((store) => store.auth);
   
   const location = useLocation();
-  
-  if (!getCookie("refreshToken") && onlyUnAuth ) {
-   
+  const from = location.state?.from || '/';
+  const isLoggedIn = getCookie("refreshToken")
+  if (!isLoggedIn && onlyUnAuth ) {
+   console.log('children')
     return children;
   }
-  if (getCookie("refreshToken") && onlyUnAuth ) {
-   
-    return <Navigate to="/" state={{ from: location }} />;
+  if (isLoggedIn && onlyUnAuth ) {
+    console.log('children')
+    return <Navigate to={ from } state={{ from: location }} />;
   }
-  if (!getCookie("refreshToken") && onlyUnAuth==false ) {
+  if (!isLoggedIn && onlyUnAuth==false ) {
   
     return <Navigate to="/login" state={{ from: location }} />;
   }

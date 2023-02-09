@@ -111,7 +111,7 @@ import { useDispatch, useSelector } from "react-redux";
           <Button type="secondary" htmlType="button" size="medium" onClick={handleReset}>
             Отменить
           </Button>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" htmlType="button">
             Сохранить
           </Button>
         </div>

@@ -15,24 +15,22 @@ function FeedDetails() {
   const dispatch = useDispatch();
   const routeMatch = useMatch({ path: "/profile/orders/:id" });
   const { id } = useParams();
+  console.log(id)
   useEffect(() => {
     if (routeMatch) {
-      console.log("dispatch(wsUserConnectionStart());")
+
       dispatch(wsUserConnectionStart());
     } else {
-      console.log("dispatch(wsConnectionStart());")
       dispatch(wsConnectionStart());
     }
     return () => {
       if (routeMatch) {
-        console.log("dispatch(wsUserConnectionClosed());")
         dispatch(wsUserConnectionClosed());
       } else {
-        console.log("dispatch(wsConnectionClosed());")
         dispatch(wsConnectionClosed());
       }
     };
-  }, []);
+  });
 
   const orders = useSelector((store) => store.wsReducer.messages.orders);
   const myOrders = useSelector((store) => store.wsReducer.userMessages.orders);
@@ -41,11 +39,9 @@ function FeedDetails() {
   const order = orders && orders.find((item) => item.number === +id);
   const myOrder = myOrders && myOrders.find((item) => item.number === +id);
   const currentOrder = routeMatch ? myOrder : order;
-  const orderIngredients = useMemo(() => {
-    return currentOrder ? currentOrder.ingredients : [];}, [currentOrder]);
 
-  const feedIngredients = useMemo(
-    () =>
+  const orderIngredients = currentOrder ? currentOrder.ingredients : [];
+  const feedIngredients =
       ingredients.length && orderIngredients.length
         ? Object.values(
             orderIngredients
@@ -63,12 +59,9 @@ function FeedDetails() {
                 return total;
               }, {})
           ).sort((ingredient) => (ingredient.type === "bun" ? -1 : 1))
-        : [],
-    [orderIngredients, ingredients]
-  );
-
-  const price = useMemo(() => {
-    return feedIngredients.length
+        : []
+       
+  const price = feedIngredients.length
       ? feedIngredients.reduce(
           (total, current) =>
             current.count && current.type !== "bun"
@@ -77,7 +70,7 @@ function FeedDetails() {
           0
         )
       : 0;
-  }, [feedIngredients]);
+  
   return (
     <section className={styles.section}>
       <div>

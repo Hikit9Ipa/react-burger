@@ -75,15 +75,15 @@ function App() {
     console.log("close")
   };
 
-  useEffect(() => {
-    const closeEsc = (e) => {
-      e.key === "Escape" && closeModal();
-    };
-    window.addEventListener("keydown", closeEsc);
-    return () => {
-      window.removeEventListener("keydown", closeEsc);
-    };
-  }, [closeModal]);
+  // useEffect(() => {
+  //   const closeEsc = (e) => {
+  //     e.key === "Escape" && closeModal();
+  //   };
+  //   window.addEventListener("keydown", closeEsc);
+  //   return () => {
+  //     window.removeEventListener("keydown", closeEsc);
+  //   };
+  // }, [closeModal]);
 
   const currentIngredientn = useSelector(
     (state) => state.currentIngredient.currentIngredient
@@ -114,7 +114,7 @@ function App() {
       
       </Routes> 
       {background && ( <Routes>
-        <Route path="/ingredients/:id" element={<Modal closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
+        <Route path="/ingredients/:id" element={<Modal header={"Детали ингредиента"} closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
         <Route path="/feed/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
         <Route path="/profile/orders/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
         {/* <Route path="/ingredients/:id" element={<Modal><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route> */}
