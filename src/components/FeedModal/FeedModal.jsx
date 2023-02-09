@@ -31,7 +31,7 @@ export function FeedModal() {
           dispatch(wsConnectionClosed());
         }
       };
-    }, [routeMatch,dispatch]);
+    },);
 
   
     const orders = useSelector((store) => store.wsReducer.messages.orders);

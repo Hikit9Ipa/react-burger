@@ -13,7 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
   const {user} = useSelector((store) => store.auth);
   const { auth } = useSelector((store) => store.auth);
   const navigate = useNavigate();
-  
+  // useEffect(() => {
+  //   if (!auth && getCookie("refreshToken")) {
+  //     dispatch(sendGetUserInfoRequest());
+  //   }
+  // }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
   useEffect(() => {
     setFormData({ ...user, password: '' });
     
-  }, []);
+  }, [auth]);
   const [buttonsShow, setButtonsShow] = useState(false);
 
   const hadleChangeFormData = (e) => {

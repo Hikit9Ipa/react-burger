@@ -61,8 +61,15 @@ function BurgerConstructor({ openOrderModal} ) {
       }
     },
   });
-  const closeOrdModal = () => {
+  // const closeModal = () => {
+  //   //dispatch({ type: CLOSE_INGREDIENT });
+  //   dispatch({ type: CLOSE_ORDER });
+  //   //navigate(-1);
+  //   console.log("close")
+  // };
+  const closeModal = () => {
     dispatch({ type: CLOSE_ORDER });
+    console.log("close")
   };
   return (
     <section className={`${styles.section} pt-25 `} ref={dropTarget}>
@@ -113,7 +120,7 @@ function BurgerConstructor({ openOrderModal} ) {
           Оформить заказ
         </Button >
         {ordVisible && (
-          <Modal onClick={closeOrdModal} header={""}>
+          <Modal closeModal={closeModal} header={""}>
             <OrderDetails/>
           </Modal>
         )}

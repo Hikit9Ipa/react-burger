@@ -17,18 +17,22 @@ function FeedDetails() {
   const { id } = useParams();
   useEffect(() => {
     if (routeMatch) {
+      console.log("dispatch(wsUserConnectionStart());")
       dispatch(wsUserConnectionStart());
     } else {
+      console.log("dispatch(wsConnectionStart());")
       dispatch(wsConnectionStart());
     }
     return () => {
       if (routeMatch) {
+        console.log("dispatch(wsUserConnectionClosed());")
         dispatch(wsUserConnectionClosed());
       } else {
+        console.log("dispatch(wsConnectionClosed());")
         dispatch(wsConnectionClosed());
       }
     };
-  }, [routeMatch,dispatch]);
+  }, []);
 
   const orders = useSelector((store) => store.wsReducer.messages.orders);
   const myOrders = useSelector((store) => store.wsReducer.userMessages.orders);

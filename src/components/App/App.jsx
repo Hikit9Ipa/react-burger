@@ -72,6 +72,7 @@ function App() {
     dispatch({ type: CLOSE_INGREDIENT });
     dispatch({ type: CLOSE_ORDER });
     navigate(-1);
+    console.log("close")
   };
 
   useEffect(() => {
@@ -104,12 +105,14 @@ function App() {
         <Route path="/profile" element={ <ProtectedRoute onlyUnAuth={false}><ProfilePage /></ProtectedRoute>}/>
         <Route path="/forgot-password"  element={ <ProtectedRoute onlyUnAuth={true}> <ForgotPasswordPage /></ProtectedRoute>}/>
         <Route path="/reset-password" element={ <ProtectedRoute onlyUnAuth={true}> <ResetPasswordPage /> </ProtectedRoute>}/>
-        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/profile/orders" element={<ProtectedRoute onlyUnAuth={false}> <ProfileOrdersPage /> </ProtectedRoute>}/>
-        <Route path="/profile/orders/:id" element={  <FeedDetails /> }/>
-      </Routes>
+        <Route path="/profile/orders/:id" element={ <ProtectedRoute onlyUnAuth={false}> <FeedDetails /> </ProtectedRoute>}/>
+        <Route path="/profile/orders" element={<ProfileOrdersPage />}/>
+        <Route path="/profile/orders/:id" element={<FeedDetails />}/>
+      
+      </Routes> 
       {background && ( <Routes>
         <Route path="/ingredients/:id" element={<Modal closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
         <Route path="/feed/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>

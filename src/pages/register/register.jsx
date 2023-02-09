@@ -13,6 +13,7 @@ export function RegisterPage() {
   const { auth } = useSelector((store)=>store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
