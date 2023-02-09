@@ -108,7 +108,7 @@ function App() {
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/profile/orders" element={<ProtectedRoute onlyUnAuth={false}> <ProfileOrdersPage /> </ProtectedRoute>}/>
-        <Route path="/profile/orders/:id" element={ <ProtectedRoute onlyUnAuth={false}> <FeedDetails /> </ProtectedRoute>}/>
+        <Route path="/profile/orders/:id" element={  <FeedDetails /> }/>
       </Routes>
       {background && ( <Routes>
         <Route path="/ingredients/:id" element={<Modal closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
