@@ -7,17 +7,19 @@ import {
 import { NavLink,useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
- import { sendLogoutRequest,sendRefreshUserInfoRequest } from "../../utils/Api/AuthApi";
+import { sendLogoutRequest,sendRefreshUserInfoRequest,sendGetUserInfoRequest } from "../../utils/Api/AuthApi";
+ 
+ import { getCookie } from "../../utils/cookie/cookie";
  export function ProfilePage () {
   const dispatch = useDispatch();
   const {user} = useSelector((store) => store.auth);
   const { auth } = useSelector((store) => store.auth);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!auth && getCookie("refreshToken")) {
-  //     dispatch(sendGetUserInfoRequest());
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!auth && getCookie("refreshToken")) {
+      dispatch(sendGetUserInfoRequest());
+    }
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -111,7 +113,7 @@ import { useDispatch, useSelector } from "react-redux";
           <Button type="secondary" htmlType="button" size="medium" onClick={handleReset}>
             Отменить
           </Button>
-          <Button type="primary" size="medium" htmlType="button">
+          <Button type="primary" size="medium">
             Сохранить
           </Button>
         </div>

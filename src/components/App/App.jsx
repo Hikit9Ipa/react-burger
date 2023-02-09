@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import AppHeader from "../AppHeader/AppHeader.jsx";
+import styles from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -75,15 +76,15 @@ function App() {
     console.log("close")
   };
 
-  // useEffect(() => {
-  //   const closeEsc = (e) => {
-  //     e.key === "Escape" && closeModal();
-  //   };
-  //   window.addEventListener("keydown", closeEsc);
-  //   return () => {
-  //     window.removeEventListener("keydown", closeEsc);
-  //   };
-  // }, [closeModal]);
+  useEffect(() => {
+    const closeEsc = (e) => {
+      e.key === "Escape" && closeModal();
+    };
+    window.addEventListener("keydown", closeEsc);
+    return () => {
+      window.removeEventListener("keydown", closeEsc);
+    };
+  }, [closeModal]);
 
   const currentIngredientn = useSelector(
     (state) => state.currentIngredient.currentIngredient
@@ -93,6 +94,7 @@ function App() {
   }, [orderNum, orderS]);
   const background = location.state?.background;
   return (
+    <div className={styles.main}>
     <DndProvider backend={HTML5Backend}>
       <AppHeader />
       <Routes location={background || location}>
@@ -114,12 +116,13 @@ function App() {
       
       </Routes> 
       {background && ( <Routes>
-        <Route path="/ingredients/:id" element={<Modal header={"Детали ингредиента"} closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
+        <Route path="/ingredients/:id" element={<Modal header ={'Детали ингредиента'} closeModal={closeModal}><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route>
         <Route path="/feed/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
         <Route path="/profile/orders/:id" element={<Modal closeModal={closeModal}><FeedModal/></Modal>}></Route>
         {/* <Route path="/ingredients/:id" element={<Modal><IngredientDetails currentIngredient={currentIngredientn}></IngredientDetails></Modal>}></Route> */}
         </Routes>)}
     </DndProvider>
+    </div>
   );
 }
 
