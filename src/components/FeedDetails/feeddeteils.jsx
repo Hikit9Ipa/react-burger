@@ -15,7 +15,6 @@ function FeedDetails() {
   const dispatch = useDispatch();
   const routeMatch = useMatch({ path: "/profile/orders/:id" });
   const { id } = useParams();
-  console.log(id)
   useEffect(() => {
     if (routeMatch) {
 

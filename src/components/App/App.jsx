@@ -58,13 +58,13 @@ function App() {
   const openIngredientModaln = (item) => {
     dispatch({ type: ADD_CURRENT_INGREDIENT, item });
     dispatch({ type: OPEN_INGREDIENT });
-    console.log("openIngredientModaln")
+    
   };
 
   const openOrderModal = (orderData) => {
-    if (auth) {dispatch(getOrderDisp(orderData));console.log("openOrderModal")}else(navigate("/login"))
+    if (auth) {dispatch(getOrderDisp(orderData));}else(navigate("/login"))
 
-    console.log(auth)
+  
     
   };
 
@@ -73,18 +73,8 @@ function App() {
     dispatch({ type: CLOSE_INGREDIENT });
     dispatch({ type: CLOSE_ORDER });
     navigate(-1);
-    console.log("close")
   };
 
-  useEffect(() => {
-    const closeEsc = (e) => {
-      e.key === "Escape" && closeModal();
-    };
-    window.addEventListener("keydown", closeEsc);
-    return () => {
-      window.removeEventListener("keydown", closeEsc);
-    };
-  }, [closeModal]);
 
   const currentIngredientn = useSelector(
     (state) => state.currentIngredient.currentIngredient

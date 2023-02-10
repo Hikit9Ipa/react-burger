@@ -10,11 +10,9 @@ export function ProtectedRoute({ children, onlyUnAuth }) {
   const from = location.state?.from || '/';
   const isLoggedIn = getCookie("refreshToken")
   if (!isLoggedIn && onlyUnAuth ) {
-   console.log('children')
     return children;
   }
   if (isLoggedIn && onlyUnAuth ) {
-    console.log('children')
     return <Navigate to={ from } state={{ from: location }} />;
   }
   if (!isLoggedIn && onlyUnAuth==false ) {

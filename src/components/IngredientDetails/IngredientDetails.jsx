@@ -8,7 +8,6 @@ function IngredientDetails(props) {
   const { id } = useParams();
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  console.log(ingredients);
 
   const currIngredient = ingredients.find(
     (ingredient) => ingredient._id === id

@@ -56,7 +56,6 @@ export function getOrderDisp(Order) {
     });
     orderPost(Order)
       .then((res) => {
-        console.log(res)
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCESS,
