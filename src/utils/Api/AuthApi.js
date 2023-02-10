@@ -317,32 +317,3 @@ export function sendRefreshUserInfoRequest(data) {
         });
     };
   }
-
-
-//       // dispatch(sendRefreshTokenRequest());
-//       getUserInfo().then((res) => {
-//         if (res.success) {
-//           dispatch({
-//             type: GET_USER_SUCCESS,
-//             user: res.user,
-//           });
-//         } else {
-//           dispatch({ type: GET_USER_FAILED });
-//         }
-//       });
-//     }
-// });
-
-// dispatch({ type: REFRESH_TOKEN_REQUEST });
-// refreshToken()
-//   .then((res) => {
-//     if (res.success) {
-//       setCookie("accessToken", res.accessToken.split("Bearer ")[1], {
-//         expires: 1200,
-//       });
-//       setCookie("refreshToken", res.refreshToken);
-//       dispatch({ type: REFRESH_TOKEN_SUCCESS, user: res.user });
-//     }
-//   })
-//   .then(checkResponse)
-//   .catch(() => dispatch({ type: REFRESH_TOKEN_FAILED }));

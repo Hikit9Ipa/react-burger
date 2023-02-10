@@ -23,9 +23,6 @@ export function ForgotPasswordPage() {
     dispatch(sendForgotPassEmail(email));
     navigate("/reset-password" ,{state:"FPass"});
   };
-  // if (auth) {
-  //   navigate("/");
-  // }
 
   return (
     <section className={styles.container}>
@@ -48,7 +45,7 @@ export function ForgotPasswordPage() {
           />
         </div>
         <div className="mt-6">
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" htmlType="button">
             Восстановить
           </Button>
         </div>

@@ -3,10 +3,10 @@ import styles from "./BurgerIngredients.module.css";
 import Ingredients from "../Ingredients/Ingredients.jsx";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-//import { ingredientPropTypes } from "../../utils/types";
 import { useSelector } from "react-redux";
 
 function BurgerIngredients({ openIngredientModaln }) {
+
   const [tab, setTab] = useState("bun");
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -84,6 +84,7 @@ function BurgerIngredients({ openIngredientModaln }) {
         >
           {items[2].title}
         </Tab>
+        
       </div>
       <ul className={styles.ingredients} onScroll={handleScroll}>
         {items.map((item) => (

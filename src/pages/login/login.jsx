@@ -30,8 +30,7 @@ export function LoginPage() {
     dispatch(sendLoginRequest({ ...formData }));
   };
   if (auth) {
-   
-    return <Navigate to="/"></Navigate>;
+    return <Navigate to="-1"></Navigate>;
   }
   return (
     <section className={styles.container}>
@@ -57,7 +56,7 @@ export function LoginPage() {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType="submit">
           Войти
         </Button>
       </form>

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState, useReducer } from "react";
+
 import styles from "./BurgerConstructor.module.css";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../utils/types";
+import { useMemo } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -10,7 +10,7 @@ import {
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import Modal from "../Modal/Modal.jsx";
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-//import orderImg from "../../images/done.svg";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
@@ -28,17 +28,20 @@ function BurgerConstructor({ openOrderModal} ) {
   const burgerBun = constructorIngredients.filter(
     (item) => item.type === "bun"
   );
-  const burgerBunIds = constructorIngredients
-    .filter((item) => item.type == "bun")
-    .map((item) => item._id);
-  const orderIds = [
+  const burgerBunIds = useMemo(() => {
+    return  constructorIngredients
+    .filter((item) => item.type === "bun")
+    .map((item) => item._id)}, [constructorIngredients]);
+  const orderIds = useMemo(() => {
+    return   [
     ...constructorIngredients.map((item) => item._id),
     burgerBunIds,
-  ];
+  ]}, [constructorIngredients,burgerBunIds]);
   const ordVisible = useSelector((state) => state.visible.orderVisible);
-  const totalPricen = constructorIngredients.reduce((acc, { price }) => {
+  const totalPricen = useMemo(() => {
+    return  constructorIngredients.reduce((acc, { price }) => {
     return acc + parseInt(price);
-  }, 0);
+  }, 0)}, [constructorIngredients]);
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
@@ -58,7 +61,8 @@ function BurgerConstructor({ openOrderModal} ) {
       }
     },
   });
-  const closeOrdModal = () => {
+ 
+  const closeModal = () => {
     dispatch({ type: CLOSE_ORDER });
   };
   return (
@@ -69,7 +73,7 @@ function BurgerConstructor({ openOrderModal} ) {
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={burgerBun[0].name}
+              text={burgerBun[0].name+" (верх)"}
               price={burgerBun[0].price}
               thumbnail={burgerBun[0].image}
             />
@@ -89,7 +93,7 @@ function BurgerConstructor({ openOrderModal} ) {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={burgerBun[0].name}
+              text={burgerBun[0].name+" (низ)"}
               price={burgerBun[0].price}
               thumbnail={burgerBun[0].image}
             />
@@ -104,12 +108,13 @@ function BurgerConstructor({ openOrderModal} ) {
         <Button
           type="primary"
           size="medium"
+          htmlType="button"
           onClick={() => {if(orderIds.length>1){openOrderModal(orderIds);}}}
         >
           Оформить заказ
-        </Button>
+        </Button >
         {ordVisible && (
-          <Modal onClick={closeOrdModal} header={""}>
+          <Modal closeModal={closeModal} header={""}>
             <OrderDetails/>
           </Modal>
         )}
@@ -118,7 +123,6 @@ function BurgerConstructor({ openOrderModal} ) {
   );
 }
 BurgerConstructor.propTypes = {
-  //ingredients: PropTypes.arrayOf(ingredientPropTypes),
   openOrderModal: PropTypes.func.isRequired,
 };
 

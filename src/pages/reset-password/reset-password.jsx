@@ -62,7 +62,7 @@ export function ResetPasswordPage() {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType="button">
           Сохранить
         </Button>
       </form>

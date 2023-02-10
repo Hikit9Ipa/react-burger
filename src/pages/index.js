@@ -6,4 +6,6 @@ import { ProfilePage } from "./profile/profile";
 import {RegisterPage} from "./register/register"
 import { ResetPasswordPage } from "./reset-password/reset-password";
 import { MainPage } from "./Main/main";
-export {Page404,LoginPage,ForgotPasswordPage,IngredientsPage,ProfilePage,RegisterPage,ResetPasswordPage,MainPage}
+import { FeedPage } from "./feed/feed";
+import ProfileOrdersPage from "./profileorders/profileorders";
+export {Page404,LoginPage,ForgotPasswordPage,IngredientsPage,ProfilePage,RegisterPage,ResetPasswordPage,MainPage,FeedPage,ProfileOrdersPage }

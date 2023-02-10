@@ -8,12 +8,15 @@ import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../../utils/types";
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
-import { NavLink,useLocation } from 'react-router-dom';
+import { NavLink,useLocation, useNavigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 function Ingredient({ element, openModal }) {
+  const location = useLocation();
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: element,
   });
+  const navigate = useNavigate();
   const constructorIngredients = useSelector((store) => store.constructorReducer.constructorIngredients);
   let activeStyle = {
     textDecoration: "none",
@@ -26,21 +29,26 @@ function Ingredient({ element, openModal }) {
       constructorIngredients.filter((item) => item._id === element._id).length
     );
   }, [constructorIngredients]);
-  const location = useLocation();
+
+
   return (
     <NavLink
     style={({ isActive }) =>
     isActive ? activeStyle : inactiveStyle
   }
-    key={ element._id }
-    to={{
-      pathname: `/ingredients/${element._id }`,
 
+    key={ element._id }
+
+    to={{
+      pathname:`/ingredients/${element._id }`,
+      state:{background:location}
     }}
-    state={"ingredient"}
+
+    state={{background:location}}
+
     >
-    <li
-      onClick={() => openModal(element)}
+    <div
+       onClick={() => {openModal(element);}}
       className={styles.item}
       ref={dragRef}
       draggable={true}
@@ -58,7 +66,7 @@ function Ingredient({ element, openModal }) {
       <p className={`${styles.caption} text text_type_main-default pt-1`}>
         {element.name}
       </p>
-    </li>
+    </div>
     </NavLink>
   );
 }

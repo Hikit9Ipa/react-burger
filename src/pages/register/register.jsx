@@ -13,6 +13,7 @@ export function RegisterPage() {
   const { auth } = useSelector((store)=>store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -70,7 +71,7 @@ export function RegisterPage() {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" htmlType="button">
           Зарегистироваться
         </Button>
       </form>

@@ -21,4 +21,9 @@ const orderTypes = PropTypes.shape({
   orderExpectationText: PropTypes.string,
 
 });
+export const newStatus = status =>{
+  if(status === "done") return "Выполнен"
+  if(status === "canceled") return "Отменен"
+  if(status === "pending") return "Готовится" 
+}
 export { ingredientPropTypes, orderTypes };
